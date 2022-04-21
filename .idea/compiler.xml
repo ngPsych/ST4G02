@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Mqtt" />
+        <module name="Rest" />
+        <module name="CommonRest" />
+        <module name="CommonMqtt" />
+        <module name="SemesterProject4-app" />
+        <module name="SemesterProject4-branding" />
+        <module name="Soap" />
+        <module name="CommonSoap" />
+        <module name="Core" />
+        <module name="Common" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
