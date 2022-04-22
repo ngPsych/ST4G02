@@ -25,6 +25,8 @@ public class etellerande {
 
         // kan lave andre for loops til andre interfaces kig på Jan
 
+        // kan også lave andre metoder som Jan gør (render og draw?)
+
     }
 
 }
