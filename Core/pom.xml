@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+        <!-- Denne første Spring-context kan fjernes, ved ikke om den skal fjernes -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
