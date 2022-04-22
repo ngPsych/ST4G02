@@ -16,6 +16,8 @@ public class AgeCalculatorSpringClient {
      */
     public static void main(String[] args) {
 
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
         ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
         AgeCalculatorBean ageCalculatorBean = (AgeCalculatorBean) context.getBean("ageCalculatorBean");
 
