@@ -6,16 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Mqtt" />
-        <module name="Rest" />
-        <module name="CommonRest" />
-        <module name="CommonMqtt" />
-        <module name="SemesterProject4-app" />
-        <module name="SemesterProject4-branding" />
-        <module name="Soap" />
-        <module name="CommonSoap" />
-        <module name="Core" />
-        <module name="Common" />
+        <module name="AgeCalculatorSpring" />
+        <module name="AgeCalculatorSpringClient" />
       </profile>
     </annotationProcessing>
   </component>
