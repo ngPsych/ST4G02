@@ -6,8 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="AGV" />
+        <module name="Warehouse" />
         <module name="AgeCalculatorSpring" />
+        <module name="Assembly" />
         <module name="AgeCalculatorSpringClient" />
+        <module name="Common" />
+        <module name="Core" />
       </profile>
     </annotationProcessing>
   </component>
