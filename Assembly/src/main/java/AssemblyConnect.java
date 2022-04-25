@@ -1,16 +1,18 @@
 import interfaces.iConnect;
 import org.eclipse.paho.client.mqttv3.*;
+import org.springframework.stereotype.Component;
+
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class AssemblyConnect{
+@Component
+public class AssemblyConnect implements iConnect{
 
-    private static final String TOPIC = "emulator/checkhealth";
+    private static final String TOPIC = "emulator/status";
 
-
-    public static void main(String[] args){
+    @Override
+    public void connect(){
         System.out.println("assembly here");
 
         //opretter id for MQTT client
@@ -26,13 +28,14 @@ public class AssemblyConnect{
             options.setAutomaticReconnect(true);
             options.setCleanSession(true);
             options.setConnectionTimeout(10);
-            //opretter forbindelse
+            //opretter forbindelse til Assembly Station
             publisher.connect(options);
 
             System.out.println("heyy");
 
             //
             CountDownLatch receivedSignal = new CountDownLatch(10);
+            // subscriber til et enkelt topic
             publisher.subscribe(AssemblyConnect.TOPIC, (topic, msg) -> {
                 String payload = new String(msg.getPayload(), StandardCharsets.UTF_8);
                 System.out.println(payload);
