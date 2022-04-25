@@ -14,13 +14,12 @@ public class AGVConnect implements iConnect {
     @Override
     public void connect() {
         System.out.println("bi her");
+        // opretter object af RestTemplate
         RestTemplate restTemplate = new RestTemplate();
-
-
+        // opretter forbindelse til AGV'en
         System.out.println(restTemplate.getForObject(
                 "http://localhost:8082/v1/status",
-                String.class,"42", "21"));
-
+                String.class,""));
     }
 }
 
