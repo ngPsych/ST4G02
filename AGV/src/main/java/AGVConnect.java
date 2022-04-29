@@ -1,4 +1,8 @@
 import interfaces.iConnect;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RequestCallback;
@@ -6,6 +10,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Component
@@ -20,6 +26,30 @@ public class AGVConnect implements iConnect {
         System.out.println(restTemplate.getForObject(
                 "http://localhost:8082/v1/status",
                 String.class,""));
+
+
+        // Put Request
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        //HttpEntity<String> httpEntity = new HttpEntity<>("{\"Program name\":\"MoveToAssemblyOperation\",\"State\":1}", headers);
+        HttpEntity<String> httpEntity = new HttpEntity<>("{\"State\":2}", headers);
+        restTemplate.put("http://localhost:8082/v1/status", httpEntity);
+
+        System.out.println(restTemplate.getForObject(
+                "http://localhost:8082/v1/status",
+                String.class,""));
+
+
+
+
+        /*
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject.put("Program name", "MoveToAssemblyOperation");
+        jsonObject.put("State", "1");
+
+         */
+
+
     }
 }
 
