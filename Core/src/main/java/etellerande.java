@@ -16,12 +16,18 @@ public class etellerande {
 
 
 
+
         for (Map.Entry<String, iConnect> iConnectEntry: context.getBeansOfType(iConnect.class).entrySet()) {
             System.out.println(iConnectEntry);
             System.out.println(iConnectEntry.getKey());
             System.out.println(iConnectEntry.getValue());
             iConnectEntry.getValue().connect();
 
+        }
+
+        for (Map.Entry<String, IAGVControlSystem> iagvControlSystemEntry: context.getBeansOfType(IAGVControlSystem.class).entrySet()) {
+            System.out.println("henlo");
+            iagvControlSystemEntry.getValue().loadProgram("MoveToStorageOperation", "1");
         }
 
         // kan lave andre for loops til andre interfaces kig på Jan

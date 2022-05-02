@@ -19,6 +19,10 @@ public class AGVConnect implements iConnect {
 
     @Override
     public void connect() {
+/*
+        String program = "MoveToStorageOperation";
+        String state = "";
+
         System.out.println("bi her");
         // opretter object af RestTemplate
         RestTemplate restTemplate = new RestTemplate();
@@ -27,18 +31,22 @@ public class AGVConnect implements iConnect {
                 "http://localhost:8082/v1/status",
                 String.class,""));
 
-
-        // Put Request
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        //HttpEntity<String> httpEntity = new HttpEntity<>("{\"Program name\":\"MoveToAssemblyOperation\",\"State\":1}", headers);
-        HttpEntity<String> httpEntity = new HttpEntity<>("{\"State\":2}", headers);
+
+        HttpEntity<String> httpEntity = new HttpEntity<>("{\"Program name\":\"" + program + "\",\"State\":" + state + "}", headers);
+        HttpEntity<String> httpEntity1 = new HttpEntity<>("{\"State\":" + state + "}", headers);
+        //"{\"Program name\":\"MoveToStorageOperation\",\"Sta
         restTemplate.put("http://localhost:8082/v1/status", httpEntity);
+
 
         System.out.println(restTemplate.getForObject(
                 "http://localhost:8082/v1/status",
                 String.class,""));
 
+
+
+*/
 
 
 

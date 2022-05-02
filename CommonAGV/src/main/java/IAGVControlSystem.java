@@ -1,6 +1,6 @@
 public interface IAGVControlSystem {
 
-void loadProgram();
+void loadProgram(String program, String state);
 
 String getStatus();
 
