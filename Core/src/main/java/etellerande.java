@@ -8,6 +8,11 @@ public class etellerande {
 
     public static void main(String[] args) {
 
+
+        Production production = new Production();
+
+        production.startProduction();
+
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         //scan i package navn efter komponeter
         context.scan("");
