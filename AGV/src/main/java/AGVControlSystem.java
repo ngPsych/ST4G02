@@ -6,7 +6,39 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class AGVControlSystem implements IAGVControlSystem{
+public class AGVControlSystem implements IAGVControlSystem, iPickupItemService, iDriveToAssemblyService, iDriveToWarehouseService, iPutDownItemService{
+
+
+    // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er
+    // ellers lav pick up og put down til både warehouse og assembly station.
+
+    @Override
+    public void pickupItem() {
+
+        System.out.println("AGV picks up an item from Warehouse or Assembly");
+
+    }
+
+    @Override
+    public void putDownItemService() {
+
+        System.out.println("AGV puts down an item on Warehouse or Assembly");
+
+    }
+
+    @Override
+    public void driveToAssembly() {
+
+        System.out.println("AGV drives from Warehouse to Assembly");
+
+    }
+
+    @Override
+    public void driveToWarehouse(){
+
+        System.out.println("AGV have arrived at Warehouse");
+
+    }
 
 
 
@@ -86,4 +118,5 @@ public class AGVControlSystem implements IAGVControlSystem{
     @Override
     public void batteryCheck() {
     }
+
 }

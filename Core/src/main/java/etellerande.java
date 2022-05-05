@@ -13,6 +13,8 @@ public class etellerande {
 
         production.startProduction();
 
+        /*
+
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         //scan i package navn efter komponeter
         context.scan("");
@@ -39,6 +41,8 @@ public class etellerande {
 
         // kan også lave andre metoder som Jan gør (render og draw?)
 
+
+         */
     }
 
 }

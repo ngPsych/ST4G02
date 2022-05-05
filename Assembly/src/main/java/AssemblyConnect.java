@@ -7,7 +7,17 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class AssemblyConnect implements iConnect{
+public class AssemblyConnect implements iConnect, iAssemblyItemService{
+
+    @Override
+    public void assemblyItem() {
+
+        System.out.println("The item have been assembled at the Assembly");
+
+    }
+
+
+
 
     private static final String TOPIC = "emulator/status";
 
@@ -47,4 +57,6 @@ public class AssemblyConnect implements iConnect{
             e.printStackTrace();
         }
     }
+
+
 }

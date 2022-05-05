@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 public class Production {
 
-    public void startProduction(){
+    int prompt = 0;
+
+    public void startProduction() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -16,101 +18,92 @@ public class Production {
         //skal man kalde
         context.refresh();
 
-        for (Map.Entry<String, iReadyItemService> iConnectEntry: context.getBeansOfType(iReadyItemService.class).entrySet()) {
-            iConnectEntry.getValue().readyItem();
 
+        for (Map.Entry<String, iReadyItemService> iConnectEntry : context.getBeansOfType(iReadyItemService.class).entrySet()) {
+            iConnectEntry.getValue().readyItem();
+            prompt = 1;
         }
 
 
-        if (scanner.next().equals("Warehouse item ready")){
+        if (prompt == 1) {
 
-            for (Map.Entry<String, iPickupItemService> iConnectEntry: context.getBeansOfType(iPickupItemService.class).entrySet()) {
-                iConnectEntry.getValue().pickupItem();
+            for (Map.Entry<String, iPickupItemService> iPickupItemServiceEntry : context.getBeansOfType(iPickupItemService.class).entrySet()) {
+                iPickupItemServiceEntry.getValue().pickupItem();
 
             }
+            prompt++;
 
         }
 
-        if (scanner.next().equals("AGV have picked up item at Warehouse")) {
+        if (prompt == 2) {
 
-            for (Map.Entry<String, iDriveToAssemblyService> iConnectEntry: context.getBeansOfType( iDriveToAssemblyService.class).entrySet()) {
+            for (Map.Entry<String, iDriveToAssemblyService> iConnectEntry : context.getBeansOfType(iDriveToAssemblyService.class).entrySet()) {
                 iConnectEntry.getValue().driveToAssembly();
 
             }
+            prompt++;
 
         }
 
-        if (scanner.next().equals("AGV have arrived at Assembly")) {
+        if (prompt == 3) {
 
-            for (Map.Entry<String, iPutItemAssemblyService> iConnectEntry: context.getBeansOfType( iPutItemAssemblyService.class).entrySet()) {
-                iConnectEntry.getValue().putItemOnAssembly();
+            for (Map.Entry<String, iPutDownItemService> iConnectEntry : context.getBeansOfType(iPutDownItemService.class).entrySet()) {
+                iConnectEntry.getValue().putDownItemService();
 
             }
+            prompt++;
 
         }
 
-        if (scanner.next().equals("Item is placed on Assembly")) {
+        if (prompt == 4) {
 
-            for (Map.Entry<String, iAssemblyItemService> iConnectEntry: context.getBeansOfType( iAssemblyItemService.class).entrySet()) {
+            for (Map.Entry<String, iAssemblyItemService> iConnectEntry : context.getBeansOfType(iAssemblyItemService.class).entrySet()) {
                 iConnectEntry.getValue().assemblyItem();
 
             }
+            prompt++;
 
         }
 
-        if (scanner.next().equals("Item is done at Assembly")) {
+        if (prompt == 5) {
 
-            for (Map.Entry<String, iPickupItemAssemblyService> iConnectEntry: context.getBeansOfType( iPickupItemAssemblyService.class).entrySet()) {
-                iConnectEntry.getValue().pickupItemAssembly();
+            for (Map.Entry<String, iPickupItemService> iConnectEntry : context.getBeansOfType(iPickupItemService.class).entrySet()) {
+                iConnectEntry.getValue().pickupItem();
 
             }
+            prompt++;
 
         }
 
-        if (scanner.next().equals("AGV have picked up item at Warehous")) {
+        if (prompt == 6) {
 
-            for (Map.Entry<String, iPickupItemAssemblyService> iConnectEntry: context.getBeansOfType( iPickupItemAssemblyService.class).entrySet()) {
-                iConnectEntry.getValue().pickupItemAssembly();
-
-            }
-
-        }
-
-        if (scanner.next().equals("AGV have picked up item at Warehouse")) {
-
-            for (Map.Entry<String, iDriveToWarehouseService> iConnectEntry: context.getBeansOfType( iDriveToWarehouseService.class).entrySet()) {
+            for (Map.Entry<String, iDriveToWarehouseService> iConnectEntry : context.getBeansOfType(iDriveToWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().driveToWarehouse();
 
             }
+            prompt++;
 
         }
 
-        if (scanner.next().equals("AGV have arrived at Assembly")) {
+        if (prompt == 7) {
 
-            for (Map.Entry<String, iPutItemWarehouseService> iConnectEntry: context.getBeansOfType( iPutItemWarehouseService.class).entrySet()) {
-                iConnectEntry.getValue().putItemInWarehouse();
+            for (Map.Entry<String, iPutDownItemService> iConnectEntry : context.getBeansOfType(iPutDownItemService.class).entrySet()) {
+                iConnectEntry.getValue().putDownItemService();
 
             }
+            prompt++;
 
         }
 
-        if (scanner.next().equals("Item is placed in Warehouse")) {
+        if (prompt == 8) {
 
-            for (Map.Entry<String, iInsertItemWarehouseService> iConnectEntry: context.getBeansOfType( iInsertItemWarehouseService.class).entrySet()) {
+            for (Map.Entry<String, iInsertItemWarehouseService> iConnectEntry : context.getBeansOfType(iInsertItemWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().insertItemInWarehouse();
 
             }
 
         }
 
-
-
-
-
-
-
-
     }
-
 
 }

@@ -4,9 +4,30 @@ import interfaces.iConnect;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WarehouseConnect implements iConnect {
+public class WarehouseConnect implements iReadyItemService, iInsertItemWarehouseService  {
 
-    
+
+
+    @Override
+    public void readyItem() {
+
+        System.out.println("Warehouse item ready for pick up");
+
+    }
+
+    @Override
+    public void insertItemInWarehouse() {
+
+        System.out.println("Warehouse have inserted the item");
+
+    }
+
+
+
+
+
+
+   /*
     @Override
     public void connect() {
 
@@ -15,6 +36,10 @@ public class WarehouseConnect implements iConnect {
 
         System.out.println(iEmulatorService.getInventory());
 
-    }
+    }*/
+
+
+
+
 
 }
