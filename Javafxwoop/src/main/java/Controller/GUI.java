@@ -1,3 +1,5 @@
+package Controller;
+
 import Controller.appController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -19,7 +19,6 @@
         <module>CommonAGV</module>
         <module>CommonWarehouse</module>
         <module>CommonAssembly</module>
-        <module>GUI</module>
         <module>Javafxwoop</module>
 
     </modules>
