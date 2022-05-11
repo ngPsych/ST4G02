@@ -60,7 +60,6 @@ public class Production {
 
             for (Map.Entry<String, iAssemblyItemService> iConnectEntry : context.getBeansOfType(iAssemblyItemService.class).entrySet()) {
                 iConnectEntry.getValue().assembleItem();
-
             }
             prompt++;
 
