@@ -11,6 +11,7 @@
         <module name="CommonWarehouse" />
         <module name="CommonAssembly" />
         <module name="CommonAGV" />
+        <module name="GUI" />
         <module name="Assembly" />
         <module name="Common" />
         <module name="Core" />

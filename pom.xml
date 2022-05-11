@@ -19,6 +19,7 @@
         <module>CommonAGV</module>
         <module>CommonWarehouse</module>
         <module>CommonAssembly</module>
+        <module>GUI</module>
 
     </modules>
 </project>
