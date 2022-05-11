@@ -13,7 +13,7 @@ public class Main {
 
         production.startProduction();
 
-        /*
+
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         //scan i package navn efter komponeter
@@ -31,18 +31,20 @@ public class Main {
             iConnectEntry.getValue().connect();
 
         }
-
+/*
         for (Map.Entry<String, IAGVControlSystem> iagvControlSystemEntry: context.getBeansOfType(IAGVControlSystem.class).entrySet()) {
             System.out.println("henlo");
             iagvControlSystemEntry.getValue().loadProgram("MoveToStorageOperation", "1");
         }
+
+ */
 
         // kan lave andre for loops til andre interfaces kig på Jan
 
         // kan også lave andre metoder som Jan gør (render og draw?)
 
 
-         */
+
     }
 
 }

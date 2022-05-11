@@ -1,5 +1,6 @@
 public interface iAssemblyItemService {
 
-    void assemblyItem();
+    void assembleItem();
+    void subscription();
 
 }

@@ -1,4 +1,3 @@
-import interfaces.iConnect;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Map;
@@ -19,11 +18,13 @@ public class Production {
         context.refresh();
 
 
+
+
+
         for (Map.Entry<String, iReadyItemService> iConnectEntry : context.getBeansOfType(iReadyItemService.class).entrySet()) {
             iConnectEntry.getValue().readyItem();
             prompt = 1;
         }
-
 
         if (prompt == 1) {
 
@@ -58,14 +59,25 @@ public class Production {
         if (prompt == 4) {
 
             for (Map.Entry<String, iAssemblyItemService> iConnectEntry : context.getBeansOfType(iAssemblyItemService.class).entrySet()) {
-                iConnectEntry.getValue().assemblyItem();
+                iConnectEntry.getValue().assembleItem();
 
             }
             prompt++;
 
         }
 
-        if (prompt == 5) {
+        if (prompt ==5){
+
+            for (Map.Entry<String, iAssemblyItemService> iConnectEntry : context.getBeansOfType(iAssemblyItemService.class).entrySet()) {
+                iConnectEntry.getValue().subscription();
+            }
+
+            prompt++;
+        }
+
+
+
+        if (prompt == 6) {
 
             for (Map.Entry<String, iPickupItemService> iConnectEntry : context.getBeansOfType(iPickupItemService.class).entrySet()) {
                 iConnectEntry.getValue().pickupItem();
@@ -75,7 +87,7 @@ public class Production {
 
         }
 
-        if (prompt == 6) {
+        if (prompt == 7) {
 
             for (Map.Entry<String, iDriveToWarehouseService> iConnectEntry : context.getBeansOfType(iDriveToWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().driveToWarehouse();
@@ -85,7 +97,7 @@ public class Production {
 
         }
 
-        if (prompt == 7) {
+        if (prompt == 8) {
 
             for (Map.Entry<String, iPutDownItemService> iConnectEntry : context.getBeansOfType(iPutDownItemService.class).entrySet()) {
                 iConnectEntry.getValue().putDownItemService();
@@ -95,7 +107,7 @@ public class Production {
 
         }
 
-        if (prompt == 8) {
+        if (prompt == 9) {
 
             for (Map.Entry<String, iInsertItemWarehouseService> iConnectEntry : context.getBeansOfType(iInsertItemWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().insertItemInWarehouse();
@@ -103,6 +115,7 @@ public class Production {
             }
 
         }
+
 
     }
 
