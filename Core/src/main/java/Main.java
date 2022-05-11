@@ -3,7 +3,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.Map;
 
-public class etellerande {
+public class Main {
 
 
     public static void main(String[] args) {
