@@ -1,5 +1,6 @@
 import interfaces.iConnect;
 import org.eclipse.paho.client.mqttv3.*;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -7,6 +8,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@ComponentScan
 public class AssemblyConnect implements iConnect, iAssemblyItemService{
 
     @Override
