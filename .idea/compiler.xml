@@ -19,7 +19,7 @@
     <bytecodeTargetLevel>
       <module name="AgeCalculatorSpring" target="1.8" />
       <module name="AgeCalculatorSpringClient" target="1.8" />
-      <module name="Core" target="16" />
+      <module name="Core" target="18" />
       <module name="GUI" target="17" />
       <module name="Javafxwoop" target="17" />
     </bytecodeTargetLevel>

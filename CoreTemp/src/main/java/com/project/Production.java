@@ -12,7 +12,7 @@ public class Production {
 
 
         for (Map.Entry<String, iReadyItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iReadyItemService.class).entrySet()) {
-            iConnectEntry.getValue().readyItem();
+            iConnectEntry.getValue().readyItem(1);
             prompt = 1;
         }
 
@@ -90,7 +90,7 @@ public class Production {
         if (prompt == 8) {
 
             for (Map.Entry<String, iInsertItemWarehouseService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iInsertItemWarehouseService.class).entrySet()) {
-                iConnectEntry.getValue().insertItemInWarehouse();
+                iConnectEntry.getValue().insertItemInWarehouse(1, "hej");
 
             }
 

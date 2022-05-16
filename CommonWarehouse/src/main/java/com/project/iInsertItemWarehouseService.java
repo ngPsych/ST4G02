@@ -2,6 +2,6 @@ package com.project;
 
 public interface iInsertItemWarehouseService {
 
-    void insertItemInWarehouse();
+    void insertItemInWarehouse(int trayId, String name);
 
 }
