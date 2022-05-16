@@ -6,12 +6,15 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/CoreTemp/pom.xml" />
+        <option value="$PROJECT_DIR$/Core/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/AgeCalculatorSpringClient/pom.xml" />
+        <option value="$PROJECT_DIR$/Core/pom.xml" />
         <option value="$PROJECT_DIR$/GUI/pom.xml" />
+        <option value="$PROJECT_DIR$/Javafxwoop/pom.xml" />
       </set>
     </option>
   </component>

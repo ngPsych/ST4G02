@@ -8,7 +8,7 @@
         <version>2.6.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.project</groupId>
+    <groupId>dk.sdu.mmmi.project</groupId>
     <artifactId>CoreTemp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>CoreTemp</name>
@@ -45,24 +45,32 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>
+
         <dependency>
-            <groupId>dk.sdu.mmmi.project</groupId>
-            <artifactId>CommonWarehouse</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Common</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
+
         <dependency>
-            <groupId>dk.sdu.mmmi.project</groupId>
-            <artifactId>CommonAGV</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Warehouse</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
+
         <dependency>
-            <groupId>dk.sdu.mmmi.project</groupId>
-            <artifactId>CommonAssembly</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>AGV</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Assembly</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
 
     </dependencies>
 

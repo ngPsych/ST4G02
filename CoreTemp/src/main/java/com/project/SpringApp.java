@@ -5,17 +5,28 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.Map;
 
 public class SpringApp extends Application {
 
-    private ConfigurableApplicationContext applicationContext;
+    private static AnnotationConfigApplicationContext applicationContext;
 
     @Override
     public void init() {
 
-        applicationContext = new SpringApplicationBuilder(CoreTempApplication.class).run();
 
+        getApplicationContext().scan("com.project");
+
+
+    }
+
+    public static AnnotationConfigApplicationContext getApplicationContext() {
+        if (applicationContext == null) {
+            applicationContext = (AnnotationConfigApplicationContext) new SpringApplicationBuilder(CoreTempApplication.class).run();
+        }
+        return applicationContext; //indeholder alle beans
     }
 
     @Override

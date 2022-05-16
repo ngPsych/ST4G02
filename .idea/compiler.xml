@@ -12,16 +12,16 @@
         <module name="CommonWarehouse" />
         <module name="CommonAssembly" />
         <module name="CommonAGV" />
-        <module name="Javafxwoop" />
         <module name="Assembly" />
         <module name="Common" />
-        <module name="Core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="AgeCalculatorSpring" target="1.8" />
       <module name="AgeCalculatorSpringClient" target="1.8" />
+      <module name="Core" target="16" />
       <module name="GUI" target="17" />
+      <module name="Javafxwoop" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

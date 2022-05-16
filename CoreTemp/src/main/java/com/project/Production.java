@@ -10,14 +10,8 @@ public class Production {
 
     public void startProduction() {
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        //scan i package navn efter komponeter
-        context.scan("com.project");
-        //skal man kalde
-        context.refresh();
 
-
-        for (Map.Entry<String, iReadyItemService> iConnectEntry : context.getBeansOfType(iReadyItemService.class).entrySet()) {
+        for (Map.Entry<String, iReadyItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iReadyItemService.class).entrySet()) {
             iConnectEntry.getValue().readyItem();
             prompt = 1;
         }
@@ -25,7 +19,7 @@ public class Production {
 
         if (prompt == 1) {
 
-            for (Map.Entry<String, iPickupItemService> iPickupItemServiceEntry : context.getBeansOfType(iPickupItemService.class).entrySet()) {
+            for (Map.Entry<String, iPickupItemService> iPickupItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iPickupItemService.class).entrySet()) {
                 iPickupItemServiceEntry.getValue().pickupItem();
 
             }
@@ -35,7 +29,7 @@ public class Production {
 
         if (prompt == 2) {
 
-            for (Map.Entry<String, iDriveToAssemblyService> iConnectEntry : context.getBeansOfType(iDriveToAssemblyService.class).entrySet()) {
+            for (Map.Entry<String, iDriveToAssemblyService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iDriveToAssemblyService.class).entrySet()) {
                 iConnectEntry.getValue().driveToAssembly();
 
             }
@@ -45,7 +39,7 @@ public class Production {
 
         if (prompt == 3) {
 
-            for (Map.Entry<String, iPutDownItemService> iConnectEntry : context.getBeansOfType(iPutDownItemService.class).entrySet()) {
+            for (Map.Entry<String, iPutDownItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iPutDownItemService.class).entrySet()) {
                 iConnectEntry.getValue().putDownItemService();
 
             }
@@ -55,7 +49,7 @@ public class Production {
 
         if (prompt == 4) {
 
-            for (Map.Entry<String, iAssemblyItemService> iConnectEntry : context.getBeansOfType(iAssemblyItemService.class).entrySet()) {
+            for (Map.Entry<String, iAssemblyItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
                 iConnectEntry.getValue().assemblyItem();
 
             }
@@ -65,7 +59,7 @@ public class Production {
 
         if (prompt == 5) {
 
-            for (Map.Entry<String, iPickupItemService> iConnectEntry : context.getBeansOfType(iPickupItemService.class).entrySet()) {
+            for (Map.Entry<String, iPickupItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iPickupItemService.class).entrySet()) {
                 iConnectEntry.getValue().pickupItem();
 
             }
@@ -75,7 +69,7 @@ public class Production {
 
         if (prompt == 6) {
 
-            for (Map.Entry<String, iDriveToWarehouseService> iConnectEntry : context.getBeansOfType(iDriveToWarehouseService.class).entrySet()) {
+            for (Map.Entry<String, iDriveToWarehouseService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iDriveToWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().driveToWarehouse();
 
             }
@@ -85,7 +79,7 @@ public class Production {
 
         if (prompt == 7) {
 
-            for (Map.Entry<String, iPutDownItemService> iConnectEntry : context.getBeansOfType(iPutDownItemService.class).entrySet()) {
+            for (Map.Entry<String, iPutDownItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iPutDownItemService.class).entrySet()) {
                 iConnectEntry.getValue().putDownItemService();
 
             }
@@ -95,7 +89,7 @@ public class Production {
 
         if (prompt == 8) {
 
-            for (Map.Entry<String, iInsertItemWarehouseService> iConnectEntry : context.getBeansOfType(iInsertItemWarehouseService.class).entrySet()) {
+            for (Map.Entry<String, iInsertItemWarehouseService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iInsertItemWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().insertItemInWarehouse();
 
             }

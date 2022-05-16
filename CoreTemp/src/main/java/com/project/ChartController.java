@@ -6,11 +6,12 @@ import javafx.scene.control.Button;
 
 public class ChartController {
 
-    @FXML
-    private Button button;
+    Production production = new Production();
 
     @FXML
-    void buttonclicked(ActionEvent event) {
+    void buttonclicked() {
+
+        production.startProduction();
 
     }
 
