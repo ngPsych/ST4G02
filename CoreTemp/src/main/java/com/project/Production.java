@@ -1,7 +1,5 @@
 package com.project;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import java.util.Map;
 
 public class Production {
@@ -19,8 +17,8 @@ public class Production {
 
         if (prompt == 1) {
 
-            for (Map.Entry<String, iPickupItemService> iPickupItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iPickupItemService.class).entrySet()) {
-                iPickupItemServiceEntry.getValue().pickupItem();
+            for (Map.Entry<String, iPickupItemAssemblyService> iPickupItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iPickupItemAssemblyService.class).entrySet()) {
+                iPickupItemServiceEntry.getValue().pickupItemAssembly();
 
             }
             prompt++;
@@ -40,7 +38,7 @@ public class Production {
         if (prompt == 3) {
 
             for (Map.Entry<String, iPutDownItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iPutDownItemService.class).entrySet()) {
-                iConnectEntry.getValue().putDownItemService();
+                iConnectEntry.getValue().putItemOnAssembly();
 
             }
             prompt++;
@@ -59,8 +57,8 @@ public class Production {
 
         if (prompt == 5) {
 
-            for (Map.Entry<String, iPickupItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iPickupItemService.class).entrySet()) {
-                iConnectEntry.getValue().pickupItem();
+            for (Map.Entry<String, iPickupItemAssemblyService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iPickupItemAssemblyService.class).entrySet()) {
+                iConnectEntry.getValue().pickupItemAssembly();
 
             }
             prompt++;
@@ -80,7 +78,7 @@ public class Production {
         if (prompt == 7) {
 
             for (Map.Entry<String, iPutDownItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iPutDownItemService.class).entrySet()) {
-                iConnectEntry.getValue().putDownItemService();
+                iConnectEntry.getValue().putItemInWarehouse();
 
             }
             prompt++;

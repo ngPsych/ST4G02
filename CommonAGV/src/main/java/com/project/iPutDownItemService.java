@@ -2,6 +2,8 @@ package com.project;
 
 public interface iPutDownItemService {
 
-    void putDownItemService();
+    void putItemOnAssembly();
+
+    void putItemInWarehouse();
 
 }
