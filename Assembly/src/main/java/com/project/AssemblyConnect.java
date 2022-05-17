@@ -1,6 +1,6 @@
 package com.project;
 
-import com.project.interfaces.iConnect;
+import com.project.interfaces.IConnect;
 import org.eclipse.paho.client.mqttv3.*;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 @ComponentScan
-public class AssemblyConnect implements iConnect, iAssemblyItemService {
+public class AssemblyConnect implements IConnect, iAssemblyItemService {
 
     @Override
     public void assemblyItem() {

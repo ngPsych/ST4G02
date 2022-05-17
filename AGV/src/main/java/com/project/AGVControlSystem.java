@@ -1,4 +1,5 @@
 package com.project;
+import org.json.JSONObject;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ComponentScan
-public class AGVControlSystem implements IAGVControlSystem, iPickupItemAssemblyService, iDriveToAssemblyService, iDriveToWarehouseService, iPutDownItemService, IPickUpWarehouseService{
+public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyService, IDriveToAssemblyService, IDriveToWarehouseService, IPutDownItemService, IPickUpWarehouseService{
 
 
     // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er
@@ -16,9 +17,10 @@ public class AGVControlSystem implements IAGVControlSystem, iPickupItemAssemblyS
 
     @Override
     public void pickupItemAssembly() {
-        chooseState("1");
+        checkState();
         loadProgram("PickAssemblyOperation","1");
         System.out.println("hihihi");
+        chooseState("2");
         System.out.println("pickitemassembly");
     }
 
@@ -31,14 +33,14 @@ public class AGVControlSystem implements IAGVControlSystem, iPickupItemAssemblyS
     }
 
     @Override
-    public void putItemOnAssembly() {
+    public void putItemAtAssembly() {
         loadProgram("PutAssemblyOperation","1");
         loadProgram("PutAssemblyOperation","2");
         System.out.println("putonass");
     }
 
     @Override
-    public void putItemInWarehouse() {
+    public void putItemAtWarehouse() {
         loadProgram("PutWarehouseOperation","1");
         loadProgram("PutWarehouseOperation","2");
         System.out.println("putinwarehouse");
@@ -46,8 +48,17 @@ public class AGVControlSystem implements IAGVControlSystem, iPickupItemAssemblyS
 
     @Override
     public void driveToAssembly() {
-        chooseState("1");
+
+        while(checkState() == 2){
+            try {
+                Thread.sleep(500);
+                System.out.println("hello");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
       loadProgram("MoveToAssemblyOperation","1");
+        chooseState("2");
       loadProgram("MoveToAssemblyOperation","2");
       System.out.println("drivetoass");
 
@@ -62,16 +73,26 @@ public class AGVControlSystem implements IAGVControlSystem, iPickupItemAssemblyS
 
     }
 
+    public int checkState(){
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject("http://localhost:8082/v1/status", String.class, "42", "21");
+
+
+        JSONObject jsonObject = new JSONObject(result);
+        int state = jsonObject.getInt("state");
+        return state;
+    }
+
     public void chooseState(String state){
         RestTemplate restTemplate = new RestTemplate();
 
         System.out.println("dadabadba her");
         // opretter object af RestTemplate
         // opretter forbindelse til AGV'en
-        System.out.println(restTemplate.getForObject(
+        /*System.out.println(restTemplate.getForObject(
                 "http://localhost:8082/v1/status",
                 String.class,""));
-
+*/
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -98,10 +119,10 @@ public class AGVControlSystem implements IAGVControlSystem, iPickupItemAssemblyS
         System.out.println("dadabadba her");
         // opretter object af RestTemplate
         // opretter forbindelse til AGV'en
-        System.out.println(restTemplate.getForObject(
+        /*System.out.println(restTemplate.getForObject(
                 "http://localhost:8082/v1/status",
                 String.class,""));
-
+*/
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -165,6 +186,5 @@ public class AGVControlSystem implements IAGVControlSystem, iPickupItemAssemblyS
     @Override
     public void batteryCheck() {
     }
-
 
 }

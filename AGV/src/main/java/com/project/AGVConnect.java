@@ -1,13 +1,13 @@
 package com.project;
 
-import com.project.interfaces.iConnect;
+import com.project.interfaces.IConnect;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 
 @Component
 @ComponentScan
-public class AGVConnect implements iConnect {
+public class AGVConnect implements IConnect {
 
     @Override
     public void connect() {

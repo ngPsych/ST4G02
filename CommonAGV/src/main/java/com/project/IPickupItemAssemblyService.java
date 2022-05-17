@@ -1,6 +1,6 @@
 package com.project;
 
-public interface iPickupItemAssemblyService {
+public interface IPickupItemAssemblyService {
 
     void pickupItemAssembly();
 

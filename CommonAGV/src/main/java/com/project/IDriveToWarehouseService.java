@@ -1,6 +1,6 @@
 package com.project;
 
-public interface iDriveToWarehouseService {
+public interface IDriveToWarehouseService {
 
     void driveToWarehouse();
 

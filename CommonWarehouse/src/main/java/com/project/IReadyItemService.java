@@ -1,6 +1,6 @@
 package com.project;
 
-public interface iReadyItemService {
+public interface IReadyItemService {
 
     void readyItem(int trayId);
 

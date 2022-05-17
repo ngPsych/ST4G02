@@ -1,6 +1,6 @@
 package com.project;
 
-public interface iDriveToAssemblyService {
+public interface IDriveToAssemblyService {
 
     void driveToAssembly();
 

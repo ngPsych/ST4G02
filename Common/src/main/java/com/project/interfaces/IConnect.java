@@ -1,6 +1,6 @@
 package com.project.interfaces;
 
-public interface iConnect {
+public interface IConnect {
 
     void connect();
 

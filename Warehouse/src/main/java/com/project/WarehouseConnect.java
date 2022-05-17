@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ComponentScan
-public class WarehouseConnect implements iReadyItemService, iInsertItemWarehouseService, IGetInventory {
+public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouseService, IGetInventory {
 
     IEmulatorService_Service service = new IEmulatorService_Service();
     IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
