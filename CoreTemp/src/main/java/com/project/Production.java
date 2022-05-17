@@ -10,9 +10,15 @@ public class Production {
 
 
 
+        for (Map.Entry<String, IGetInventory> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IGetInventory.class).entrySet()) {
+            iGetInventory.getValue().getInventory();
+            prompt = 1;
+        }
+
+
 
         for (Map.Entry<String, IReadyItemService> iReadyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IReadyItemService.class).entrySet()) {
-            iReadyItemServiceEntry.getValue().readyItem(1);
+            iReadyItemServiceEntry.getValue().readyItem();
             prompt = 1;
         }
 
