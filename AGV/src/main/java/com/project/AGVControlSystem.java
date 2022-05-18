@@ -9,14 +9,39 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ComponentScan
-public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyService, IDriveToAssemblyService, IDriveToWarehouseService, IPutDownItemService, IPickUpWarehouseService{
+public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyService, IMoveToAssemblyService, IMoveToWarehouseService, IPutDownItemService, IPickUpWarehouseService{
 
 
     // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er
     // ellers lav pick up og put down til både warehouse og assembly station.
 
+
+    @Override
+    public void pickupWarehouse() {
+        loadProgram("PickWarehouseOperation","1");
+        chooseState("2");
+        System.out.println("The items are being picked up at the warehouse");
+    }
+
+    @Override
+    public void moveToAssembly() {
+        continueNextOperation();
+        loadProgram("MoveToAssemblyOperation","1");
+        chooseState("2");
+        System.out.println("drivetoass");
+    }
+
+    @Override
+    public void putItemAtAssembly() {
+        continueNextOperation();
+        loadProgram("PutAssemblyOperation","1");
+        chooseState("2");
+        System.out.println("Putting item at assembly");
+    }
+
     @Override
     public void pickupItemAssembly() {
+
         checkState();
         loadProgram("PickAssemblyOperation","1");
         System.out.println("hihihi");
@@ -25,19 +50,15 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
     }
 
     @Override
-    public void pickupWarehouse() {
+    public void moveToWarehouse(){
 
-        loadProgram("PickWarehouseOperation","1");
-        loadProgram("PickWarehouseOperation","2");
-        System.out.println("pickupwarehouse");
+        loadProgram("MoveToStorageOperation","1");
+        loadProgram("MoveToStorageOperation","2");
+        System.out.println("drivetowarehouse");
+
     }
 
-    @Override
-    public void putItemAtAssembly() {
-        loadProgram("PutAssemblyOperation","1");
-        loadProgram("PutAssemblyOperation","2");
-        System.out.println("putonass");
-    }
+
 
     @Override
     public void putItemAtWarehouse() {
@@ -46,31 +67,30 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
         System.out.println("putinwarehouse");
     }
 
-    @Override
-    public void driveToAssembly() {
 
+    /*
+    public boolean continueToNextOperation(){
+        while(checkState() == 2){
+            try{
+                Thread.sleep(100);
+                System.out.println("hello");
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }*/
+
+    // This method runs until the state is at 1.
+    public void continueNextOperation(){
         while(checkState() == 2){
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
                 System.out.println("hello");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-      loadProgram("MoveToAssemblyOperation","1");
-        chooseState("2");
-      loadProgram("MoveToAssemblyOperation","2");
-      System.out.println("drivetoass");
-
-    }
-
-    @Override
-    public void driveToWarehouse(){
-
-       loadProgram("MoveToStorageOperation","1");
-       loadProgram("MoveToStorageOperation","2");
-        System.out.println("drivetowarehouse");
-
     }
 
     public int checkState(){
