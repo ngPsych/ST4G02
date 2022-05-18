@@ -35,6 +35,9 @@ public class ChartController {
     private Label warehousestatus;
 
     @FXML
+    private Label healthchecklabel;
+
+    @FXML
     void buttonclickedstop() {
 
 

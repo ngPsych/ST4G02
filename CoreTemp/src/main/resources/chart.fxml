@@ -52,7 +52,7 @@
             <Label fx:id="assemblyprint" text="Label" />
             <Label />
             <Label text="Healthy Operation" />
-            <Label text="Label" />
+            <Label fx:id="healthchecklabel" text="Label" />
          </children>
       </VBox>
    </children>
