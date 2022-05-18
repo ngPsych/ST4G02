@@ -8,7 +8,10 @@ public class Production {
 
     public void startProduction() {
 
-
+        // Start the connection to the MQTT immediately
+        for (Map.Entry<String, iAssemblyItemService> iAssemblyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
+            iAssemblyItemServiceEntry.getValue().connect();
+        }
 
         for (Map.Entry<String, IGetInventory> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IGetInventory.class).entrySet()) {
             iGetInventory.getValue().getInventory();
@@ -53,17 +56,14 @@ public class Production {
         if (prompt == 5) {
 
             for (Map.Entry<String, iAssemblyItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
-                iConnectEntry.getValue().assemblyItem();
+                iConnectEntry.getValue().assembleItem();
 
             }
             prompt++;
 
         }
 
-
-
-        //-------
-        if (prompt == 10) {
+        if (prompt == 6) {
 
             for (Map.Entry<String, IPickupItemAssemblyService> iPickupItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IPickupItemAssemblyService.class).entrySet()) {
                 iPickupItemServiceEntry.getValue().pickupItemAssembly();
@@ -73,7 +73,7 @@ public class Production {
 
         }
 
-        if (prompt == 6) {
+        if (prompt == 7) {
 
             for (Map.Entry<String, IMoveToWarehouseService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(IMoveToWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().moveToWarehouse();
@@ -84,7 +84,7 @@ public class Production {
         }
 
 
-        if (prompt == 7) {
+        if (prompt == 8) {
 
             for (Map.Entry<String, IPutDownItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(IPutDownItemService.class).entrySet()) {
                 iConnectEntry.getValue().putItemAtWarehouse();
@@ -94,7 +94,7 @@ public class Production {
 
         }
 
-        if (prompt == 8) {
+        if (prompt == 9) {
 
             for (Map.Entry<String, IInsertItemWarehouseService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(IInsertItemWarehouseService.class).entrySet()) {
                 iConnectEntry.getValue().insertItemInWarehouse(1, "hej");

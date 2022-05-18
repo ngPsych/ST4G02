@@ -2,6 +2,12 @@ package com.project;
 
 public interface iAssemblyItemService {
 
-    void assemblyItem();
+    void assembleItem();
+
+    void subscription();
+
+    void connect();
+
+    boolean isHealthy();
 
 }

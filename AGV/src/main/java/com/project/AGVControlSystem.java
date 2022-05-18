@@ -28,7 +28,8 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
         continueNextOperation();
         loadProgram("MoveToAssemblyOperation","1");
         chooseState("2");
-        System.out.println("drivetoass");
+
+        System.out.println("Driving to the Assembly station");
     }
 
     @Override
@@ -36,25 +37,26 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
         continueNextOperation();
         loadProgram("PutAssemblyOperation","1");
         chooseState("2");
+
         System.out.println("Putting item at assembly");
     }
 
     @Override
     public void pickupItemAssembly() {
-
-        checkState();
+        continueNextOperation();
         loadProgram("PickAssemblyOperation","1");
-        System.out.println("hihihi");
         chooseState("2");
-        System.out.println("pickitemassembly");
+
+        System.out.println("Currently picking up item from assembly station");
     }
 
     @Override
     public void moveToWarehouse(){
-
+        continueNextOperation();
         loadProgram("MoveToStorageOperation","1");
-        loadProgram("MoveToStorageOperation","2");
-        System.out.println("drivetowarehouse");
+        chooseState("2");
+
+        System.out.println(" Driving to the warehouse");
 
     }
 
@@ -62,9 +64,10 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
 
     @Override
     public void putItemAtWarehouse() {
+        continueNextOperation();
         loadProgram("PutWarehouseOperation","1");
-        loadProgram("PutWarehouseOperation","2");
-        System.out.println("putinwarehouse");
+        chooseState("2");
+        System.out.println("Putting items at warehouse");
     }
 
 
