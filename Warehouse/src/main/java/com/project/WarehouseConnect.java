@@ -13,6 +13,7 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
 
     IEmulatorService_Service service = new IEmulatorService_Service();
     IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
+    static int trayId;
 
     @Override
     public void readyItem() {
@@ -24,7 +25,7 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
         String[] jsonStrings = tempInventory.split("},|}]");
         JSONObject[] jsonObjects = new JSONObject[10];
         for (int i = 0; i < 10; i++) {
-            int j = i + 1;
+            trayId = i + 1;
 
             // Adding missing } to create json strings.
             jsonStrings[i] += "}";
@@ -34,27 +35,29 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
             jsonObjects[i] = new JSONObject(jsonStrings[i]);
 
             //TODO WE SHOULD RETURN SOME SORT OF VALUE SO THAT THE PRODUCTION LINE STOPS WITH NO INGREDIENTS.
-            if (jsonObjects[i].getString("Content").equals("Item " + j)) {
-                iEmulatorService.pickItem(j);
+            if (jsonObjects[i].getString("Content").equals("Item " + trayId)) {
+                iEmulatorService.pickItem(trayId);
                 System.out.println("Warehouse item ready for pick up");
                 break;
             } else if (jsonObjects[i].getInt("Id") == 10) {
                 System.out.println("No more items in the warehouse");
+                trayId = 1000;
                 break;
             }
         }
     }
 
     @Override
-    public void insertItemInWarehouse(int trayId, String name) {
-        iEmulatorService.insertItem(trayId, name);
+    public void insertItemInWarehouse() {
+        String droneName = "Drone " + trayId;
+        iEmulatorService.insertItem(trayId, droneName);
+
         System.out.println("Warehouse have inserted the item");
+        System.out.println(iEmulatorService.getInventory());
     }
 
     @Override
     public void getInventory() {
-
-
         System.out.println(iEmulatorService.getInventory());
     }
 

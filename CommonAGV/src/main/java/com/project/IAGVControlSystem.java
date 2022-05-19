@@ -6,5 +6,5 @@ void loadProgram(String program, String state);
 
 String getStatus();
 
-void batteryCheck();
+void batteryCheck(String statusInformation);
 }
