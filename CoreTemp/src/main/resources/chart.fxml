@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="800" minHeight="425.0" minWidth="-Infinity" prefHeight="527.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ChartController">
 
     <children>
-      <Button layoutX="18.0" layoutY="129.0" mnemonicParsing="false" onAction="#buttonclicked" prefHeight="25.0" prefWidth="61.0" text="Start" />
+      <Button fx:id="startbutton" layoutX="18.0" layoutY="129.0" mnemonicParsing="false" onAction="#buttonclicked" prefHeight="25.0" prefWidth="61.0" text="Start" />
       <Button layoutX="18.0" layoutY="158.0" mnemonicParsing="false" onAction="#buttonclickedstop" prefHeight="25.0" prefWidth="60.0" text="Stop" />
       <TextArea fx:id="inventoryprint" layoutX="355.0" layoutY="58.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="430.0" layoutY="37.0" text="Inventory" />
@@ -48,8 +48,11 @@
             <Label fx:id="agvprint" text="Label" />
             <Label />
             <Label text="Assembly" />
-            <Label text="State, Last Operation, ProcessID, Current Operation " />
+            <Label text="State, Last Operation, Current Operation " />
             <Label fx:id="assemblyprint" text="Label" />
+            <Label />
+            <Label text="Assembly ProcessID" />
+            <Label fx:id="processidlabel" text="Label" />
             <Label />
             <Label text="Healthy Operation" />
             <Label fx:id="healthchecklabel" text="Label" />
