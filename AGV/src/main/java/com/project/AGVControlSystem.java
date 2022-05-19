@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ComponentScan
-public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyService, IMoveService, IPutDownItemService, IPickUpWarehouseService {
+public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyService, IMoveService, IPutDownItemService, IPickUpWarehouseService, IAGVConnectionChecker {
 
 
     // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er
@@ -155,10 +155,22 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
 
     }
 
+
     @Override
-    public String getStatus() {
-        return null;
+    public String check() {
+        String connection ="";
+
+        if(checkState()==1 ){
+            connection = "Connected";
+        }
+
+        return connection;
     }
 
 
+    @Override
+    public String getStatus() {
+
+        return null;
+    }
 }

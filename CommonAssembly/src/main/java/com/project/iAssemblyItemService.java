@@ -6,7 +6,7 @@ public interface iAssemblyItemService {
 
     void subscription();
 
-    void connect();
+    String connect();
 
     boolean isHealthy();
 

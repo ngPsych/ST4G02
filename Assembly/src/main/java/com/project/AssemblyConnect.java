@@ -10,7 +10,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class AssemblyConnect implements iAssemblyItemService {
+public class AssemblyConnect implements iAssemblyItemService, IAssemblyConnectionChecker{
 
     private static final String OPERATION = "emulator/operation";
     private static final String TOPIC = "emulator/status";
@@ -22,6 +22,7 @@ public class AssemblyConnect implements iAssemblyItemService {
         as.connect();
         as.subscription();
         as.assembleItem();
+
     }
 
     @Override
@@ -50,7 +51,7 @@ public class AssemblyConnect implements iAssemblyItemService {
     }
 
     @Override
-    public void connect() {
+    public String connect() {
         System.out.println("assemblyConnect here");
         //opretter id for MQTT client
         String publisherId = "Assembly Station";
@@ -70,6 +71,8 @@ public class AssemblyConnect implements iAssemblyItemService {
         } catch (MqttException e) {
             e.printStackTrace();
         }
+
+        return "Connected";
 
     }
 
@@ -112,6 +115,39 @@ public class AssemblyConnect implements iAssemblyItemService {
             e.printStackTrace();
         }
 
+    }
 
+
+    @Override
+    public String check() {
+        String connection = "";
+
+        //opretter id for MQTT client
+        String publisherId = "Assembly Station";
+
+        try {
+
+
+            //opretter MQTTclient object, hvor vi tilføjer hvilket netværk vi skal oprette forbindelse til
+            IMqttClient publisher = new MqttClient("tcp://localhost:1883", publisherId);
+
+            //opstiller options for connection
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setAutomaticReconnect(true);
+            options.setCleanSession(true);
+            options.setConnectionTimeout(10);
+            //opretter forbindelse til Assembly Station
+            publisher.connect(options);
+            if (publisher.isConnected()) {
+                connection = "Connected1111";
+            }
+            return connection;
+
+        } catch (MqttException e) {
+            e.printStackTrace();
+
+        }
+
+        return connection;
     }
 }

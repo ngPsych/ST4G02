@@ -69,9 +69,8 @@ public class ChartController implements Initializable {
     @FXML
     void buttonclickedstop() {
 
-
-
     }
+
 
 
     Thread wareHouseThread;
@@ -89,6 +88,7 @@ public class ChartController implements Initializable {
         wareHouseThread.setDaemon(true);
         wareHouseThread.start();
 
+       // healthchecklabel.setText(production.);
 
     }
 

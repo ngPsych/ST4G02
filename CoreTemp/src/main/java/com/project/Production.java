@@ -10,13 +10,15 @@ public class Production {
     //TODO - VI BURDE NOK STARTE FRA CHARGING STATION OG SÅ BEVÆGE OS TIL WAREHOUSE.
     public void startProduction() {
 
-        for(Map.Entry<String, IMoveService> iMoveToWarehouseServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IMoveService.class).entrySet()){
+        for (Map.Entry<String, IMoveService> iMoveToWarehouseServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IMoveService.class).entrySet()) {
             iMoveToWarehouseServiceEntry.getValue().moveToWarehouse();
         }
 
+
+        /*
         for (Map.Entry<String, iAssemblyItemService> iAssemblyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
             iAssemblyItemServiceEntry.getValue().connect();
-        }
+        }*/
 
         System.out.println(WarehouseConnect.trayId + "SJDJASJDA");
         while (WarehouseConnect.trayId <= 10) {
@@ -35,7 +37,8 @@ public class Production {
                     iReadyItemServiceEntry.getValue().readyItem();
                     prompt++;
                 }
-            }System.out.println(WarehouseConnect.trayId + " AAAAAAAAAAAAAAAAAH");
+            }
+            System.out.println(WarehouseConnect.trayId + " AAAAAAAAAAAAAAAAAH");
 
             if (prompt == 2) {
                 for (Map.Entry<String, IPickUpWarehouseService> iPickupWarehouseServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IPickUpWarehouseService.class).entrySet()) {
@@ -126,7 +129,61 @@ public class Production {
         }
         System.out.println("The warehouse is now filled.");
 
+    }
+
+    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+    public String prodInventory() {
+        String inventory = "";
+
+        for (Map.Entry<String, IGetInventory> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IGetInventory.class).entrySet()) {
+            inventory = iGetInventory.getValue().getInventory();
+
         }
 
-
+        return inventory;
     }
+
+    public String stateSetter() {
+        String state = "";
+
+        for (Map.Entry<String, IGetState> iGetState : SpringApp.getApplicationContext().getBeansOfType(IGetState.class).entrySet()) {
+            state = iGetState.getValue().getState();
+
+        }
+        return state;
+    }
+
+    public String agvConnectionCheck() {
+        String connect = "";
+        for (Map.Entry<String, IAGVConnectionChecker> iagvConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IAGVConnectionChecker.class).entrySet()) {
+            connect = iagvConnectionCheckerEntry.getValue().check();
+
+        }
+        return connect;
+    }
+
+    public String warehouseConnectionCheck() {
+        String connect = "";
+
+        for (Map.Entry<String, IWarehouseConnectionChecker> iWarehouseConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IWarehouseConnectionChecker.class).entrySet()) {
+            connect = iWarehouseConnectionCheckerEntry.getValue().check();
+
+        }
+
+        return connect;
+    }
+
+
+    public String assemblyConnectionCheck() {
+        String connect = "";
+
+        for (Map.Entry<String, iAssemblyItemService> iAssemblyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
+            connect = iAssemblyItemServiceEntry.getValue().connect();
+
+        }
+
+        return connect;
+    }
+}
