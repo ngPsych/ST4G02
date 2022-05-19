@@ -1,18 +1,24 @@
 package com.project;
 
 import com.project.interfaces.IConnect;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.IMqttClient;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import org.json.JSONObject;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
-
 import java.util.concurrent.TimeUnit;
 
 @Component
 @ComponentScan
-public class AssemblyConnect implements IConnect, iAssemblyItemService {
+public class AssemblyConnect implements IConnect, iAssemblyItemService, IAssemblyConnectionChecker, IAssemblyStatus {
+
+    String tester = "";
 
     @Override
     public void assemblyItem() {
@@ -20,8 +26,6 @@ public class AssemblyConnect implements IConnect, iAssemblyItemService {
         System.out.println("The item have been assembled at the Assembly");
 
     }
-
-
 
 
     private static final String TOPIC = "emulator/status";
@@ -63,5 +67,91 @@ public class AssemblyConnect implements IConnect, iAssemblyItemService {
         }
     }
 
+    /*
+    public static void main(String[] args) {
+        System.out.println("assembly here");
 
+        //opretter id for MQTT client
+        String publisherId = "Assembly Station";
+
+        try {
+            //opretter MQTTclient object, hvor vi tilføjer hvilket netværk vi skal oprette forbindelse til
+            IMqttClient publisher = new MqttClient("tcp://localhost:1883", publisherId);
+
+
+            //opstiller options for connection
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setAutomaticReconnect(true);
+            options.setCleanSession(true);
+            options.setConnectionTimeout(10);
+            //opretter forbindelse til Assembly Station
+            publisher.connect(options);
+
+
+            System.out.println("heyy");
+
+            //
+            CountDownLatch receivedSignal = new CountDownLatch(10);
+            // subscriber til et enkelt topic
+            publisher.subscribe(AssemblyConnect.TOPIC, (topic, msg) -> {
+                String payload = new String(msg.getPayload(), StandardCharsets.UTF_8);
+              //  System.out.println(payload);
+
+                JSONObject jsonObject = new JSONObject(payload);
+                String state = jsonObject.getString("State");
+                System.out.println(state);
+
+                receivedSignal.countDown();
+            });
+            receivedSignal.await(1, TimeUnit.MINUTES);
+
+        } catch (MqttException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+     */
+
+
+    @Override
+    public String check() {
+
+        String connection = "";
+
+        //opretter id for MQTT client
+        String publisherId = "Assembly Station";
+
+        try {
+
+
+            //opretter MQTTclient object, hvor vi tilføjer hvilket netværk vi skal oprette forbindelse til
+            IMqttClient publisher = new MqttClient("tcp://localhost:1883", publisherId);
+
+            //opstiller options for connection
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setAutomaticReconnect(true);
+            options.setCleanSession(true);
+            options.setConnectionTimeout(10);
+            //opretter forbindelse til Assembly Station
+            publisher.connect(options);
+            if (publisher.isConnected()) {
+                connection = "Connected";
+            }
+            return connection;
+
+        } catch (MqttException e) {
+            e.printStackTrace();
+
+        }
+
+        return connection;
+    }
+
+    @Override
+    public String print() {
+        
+        return null;
+
+    }
 }

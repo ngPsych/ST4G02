@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ComponentScan
-public class AGVControlSystem implements IAGVControlSystem, IDriveToAssemblyService, IDriveToWarehouseService, IPutDownItemService, IPickUpWarehouseService{
+public class AGVControlSystem implements IAGVControlSystem, IDriveToAssemblyService, IDriveToWarehouseService, IPutDownItemService, IPickUpWarehouseService, IAGVConnectionChecker {
 
 
     // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er
@@ -73,6 +73,7 @@ public class AGVControlSystem implements IAGVControlSystem, IDriveToAssemblyServ
 
     }
 
+
     public int checkState(){
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject("http://localhost:8082/v1/status", String.class, "42", "21");
@@ -82,6 +83,7 @@ public class AGVControlSystem implements IAGVControlSystem, IDriveToAssemblyServ
         int state = jsonObject.getInt("state");
         return state;
     }
+
 
     public void chooseState(String state){
         RestTemplate restTemplate = new RestTemplate();
@@ -187,4 +189,17 @@ public class AGVControlSystem implements IAGVControlSystem, IDriveToAssemblyServ
     public void batteryCheck() {
     }
 
+    @Override
+    public String check() {
+
+        String connectionString ="";
+
+        if (checkState() == 1 || checkState() == 2 || checkState() == 3){
+
+            connectionString = "Connected";
+
+        }
+
+        return connectionString;
+    }
 }

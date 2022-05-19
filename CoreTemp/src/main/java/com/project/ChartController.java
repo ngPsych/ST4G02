@@ -1,14 +1,11 @@
 package com.project;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,6 +39,9 @@ public class ChartController implements Initializable {
     private Label warehousestatus;
 
     @FXML
+    private Label processidlabel;
+
+    @FXML
     private Label healthchecklabel;
 
     @FXML
@@ -53,10 +53,16 @@ public class ChartController implements Initializable {
         inventoryprint.setEditable(false);
         inventoryprint.isWrapText();
         inventoryprint.setWrapText(true);
-
-
         inventoryprint.setText(production.prodInventory());
+
         warehouseprint.setText(production.stateSetter());
+      //  assemblyprint.setText(production.assemblyStatusPrint());
+
+        agvstatus.setText(production.agvConnectionCheck());
+        warehousestatus.setText(production.warehouseConnectionCheck());
+        assemblystatus.setText(production.assemblyConnectionCheck());
+
+
 
     }
 
@@ -77,7 +83,8 @@ public class ChartController implements Initializable {
 
         inventoryprint.setText(production.prodInventory());
 
-        LabelChecker labelChecker = new LabelChecker(10, warehouseprint);
+
+        WarehouseLabelUpdater labelChecker = new WarehouseLabelUpdater(10, warehouseprint);
         wareHouseThread = new Thread(labelChecker);
         wareHouseThread.setDaemon(true);
         wareHouseThread.start();
@@ -85,14 +92,14 @@ public class ChartController implements Initializable {
 
     }
 
-    public class LabelChecker implements Runnable {
+    public class WarehouseLabelUpdater implements Runnable {
 
 
         private long sleepTime;
         private boolean running;
         private Label label;
 
-        public LabelChecker(long sleepTime, Label label) {
+        public WarehouseLabelUpdater(long sleepTime, Label label) {
 
             this.sleepTime = sleepTime;
             this.label = label;

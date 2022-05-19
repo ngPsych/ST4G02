@@ -10,7 +10,7 @@ public class Production {
         String inventory = "";
         for (Map.Entry<String, IGetInventory> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IGetInventory.class).entrySet()) {
             inventory = iGetInventory.getValue().getInventory();
-            prompt = 1;
+
         }
 
         return inventory;
@@ -21,10 +21,59 @@ public class Production {
 
         for (Map.Entry<String, IGetState> iGetState : SpringApp.getApplicationContext().getBeansOfType(IGetState.class).entrySet()) {
             state = iGetState.getValue().getState();
-            prompt = 1;
+
         }
         return state;
     }
+
+    public String agvConnectionCheck(){
+        String connect = "";
+        for (Map.Entry<String, IAGVConnectionChecker> iagvConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IAGVConnectionChecker.class).entrySet()) {
+            connect = iagvConnectionCheckerEntry.getValue().check();
+
+        }
+        return connect;
+    }
+
+    public String warehouseConnectionCheck(){
+        String connect = "";
+
+        for (Map.Entry<String, IWarehouseConnectionChecker> iWarehouseConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IWarehouseConnectionChecker.class).entrySet()) {
+            connect = iWarehouseConnectionCheckerEntry.getValue().check();
+
+        }
+
+        return connect;
+    }
+
+    public String assemblyConnectionCheck(){
+        String connect = "";
+
+        for (Map.Entry<String, IAssemblyConnectionChecker> iAssemblyConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyConnectionChecker.class).entrySet()) {
+            connect = iAssemblyConnectionCheckerEntry.getValue().check();
+
+        }
+
+        return connect;
+    }
+
+    public String assemblyStatusPrint(){
+        String status = "";
+
+        for (Map.Entry<String, IAssemblyStatus> iAssemblyStatusEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyStatus.class).entrySet()) {
+            status = iAssemblyStatusEntry.getValue().print();
+
+        }
+
+        return status;
+    }
+
+
+
+
+
+
+    //----------------------------------------------------
 
     public void startProduction() {
 

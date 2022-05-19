@@ -48,8 +48,11 @@
             <Label fx:id="agvprint" text="Label" />
             <Label />
             <Label text="Assembly" />
-            <Label text="State, Last Operation, ProcessID, Current Operation " />
+            <Label text="State, Last Operation, Current Operation " />
             <Label fx:id="assemblyprint" text="Label" />
+            <Label />
+            <Label text="Assembly ProcessID" />
+            <Label fx:id="processidlabel" text="Label" />
             <Label />
             <Label text="Healthy Operation" />
             <Label fx:id="healthchecklabel" text="Label" />
