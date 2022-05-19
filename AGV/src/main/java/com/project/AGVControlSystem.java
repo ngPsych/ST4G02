@@ -9,12 +9,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ComponentScan
-public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyService, IDriveToAssemblyService, IDriveToWarehouseService, IPutDownItemService, IPickUpWarehouseService{
+public class AGVControlSystem implements IAGVControlSystem, IDriveToAssemblyService, IDriveToWarehouseService, IPutDownItemService, IPickUpWarehouseService{
 
 
     // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er
     // ellers lav pick up og put down til både warehouse og assembly station.
-
+/*
     @Override
     public void pickupItemAssembly() {
         checkState();
@@ -22,7 +22,7 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
         System.out.println("hihihi");
         chooseState("2");
         System.out.println("pickitemassembly");
-    }
+    } */
 
     @Override
     public void pickupWarehouse() {

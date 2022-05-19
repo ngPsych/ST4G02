@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ComponentScan
-public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouseService, IGetInventory {
+public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouseService, IGetInventory, IGetState {
 
     IEmulatorService_Service service = new IEmulatorService_Service();
     IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
@@ -51,10 +51,37 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
     }
 
     @Override
-    public void getInventory() {
-
+    public String getInventory() {
 
         System.out.println(iEmulatorService.getInventory());
+
+        String inventory = iEmulatorService.getInventory();
+
+        if (inventory.contains("State\":0")) {
+            inventory = inventory.replace(",\"State\":0","");
+        } else if (inventory.contains("State\":1")) {
+            inventory = inventory.replace(",\"State\":1","");
+        }
+        return inventory;
+
+    }
+
+    @Override
+    public String getState(){
+
+        IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
+
+        String state = iEmulatorService.getInventory();
+
+            if (state.contains("State\":0")) {
+                state = "0";
+            } else if (state.contains("State\":1")) {
+                state = "1";
+            } else if(state.contains("State\":2")){
+                state = "2";
+            }
+
+        return state;
     }
 
 
@@ -73,3 +100,4 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
 
 
 }
+

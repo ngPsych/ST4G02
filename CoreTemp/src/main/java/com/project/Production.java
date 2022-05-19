@@ -6,6 +6,26 @@ public class Production {
 
     int prompt = 0;
 
+    public String prodInventory(){
+        String inventory = "";
+        for (Map.Entry<String, IGetInventory> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IGetInventory.class).entrySet()) {
+            inventory = iGetInventory.getValue().getInventory();
+            prompt = 1;
+        }
+
+        return inventory;
+    }
+
+    public String stateSetter(){
+        String state ="";
+
+        for (Map.Entry<String, IGetState> iGetState : SpringApp.getApplicationContext().getBeansOfType(IGetState.class).entrySet()) {
+            state = iGetState.getValue().getState();
+            prompt = 1;
+        }
+        return state;
+    }
+
     public void startProduction() {
 
 
@@ -16,16 +36,19 @@ public class Production {
         }
 
 
-
         for (Map.Entry<String, IReadyItemService> iReadyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IReadyItemService.class).entrySet()) {
             iReadyItemServiceEntry.getValue().readyItem();
             prompt = 1;
         }
 
+
+
+        //--------
+/*
         for (Map.Entry<String, IPickUpWarehouseService>  iPickupWarehouseServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IPickUpWarehouseService.class).entrySet()) {
             iPickupWarehouseServiceEntry.getValue().pickupWarehouse();
             prompt = 1;
-        }
+        }*/
 
         if (prompt == 2) {
 
@@ -60,7 +83,7 @@ public class Production {
 
 
         //-------
-        if (prompt == 1) {
+    /*    if (prompt == 10) {
 
             for (Map.Entry<String, IPickupItemAssemblyService> iPickupItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IPickupItemAssemblyService.class).entrySet()) {
                 iPickupItemServiceEntry.getValue().pickupItemAssembly();
@@ -68,7 +91,7 @@ public class Production {
             }
             prompt++;
 
-        }
+        } */
 
         if (prompt == 6) {
 
