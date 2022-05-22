@@ -58,7 +58,7 @@ public class ChartController implements Initializable {
         warehouseprint.setText(production.stateSetter());
       //  assemblyprint.setText(production.assemblyStatusPrint());
 
-        agvstatus.setText(production.agvConnectionCheck());
+        //agvstatus.setText(production.agvConnectionCheck());
         warehousestatus.setText(production.warehouseConnectionCheck());
         assemblystatus.setText(production.assemblyConnectionCheck());
 
@@ -78,15 +78,18 @@ public class ChartController implements Initializable {
     @FXML
     void buttonclicked() {
 
-        production.startProduction();
+        //production.startProduction();
+        new Thread(()->{
+            production.startProduction();
+        }).start();
 
-        inventoryprint.setText(production.prodInventory());
+        //inventoryprint.setText(production.prodInventory());
 
 
-        WarehouseLabelUpdater labelChecker = new WarehouseLabelUpdater(10, warehouseprint);
+        /*WarehouseLabelUpdater labelChecker = new WarehouseLabelUpdater(10, warehouseprint);
         wareHouseThread = new Thread(labelChecker);
         wareHouseThread.setDaemon(true);
-        wareHouseThread.start();
+        wareHouseThread.start();*/
 
        // healthchecklabel.setText(production.);
 

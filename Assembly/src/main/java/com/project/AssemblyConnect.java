@@ -1,6 +1,5 @@
 package com.project;
 
-import com.project.interfaces.IConnect;
 import org.eclipse.paho.client.mqttv3.*;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
