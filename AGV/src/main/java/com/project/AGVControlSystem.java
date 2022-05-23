@@ -2,9 +2,8 @@ package com.project;
 
 import org.json.JSONObject;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,9 +19,9 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
     public void batteryCheck(String statusInformation) {
         String[] tempArray = statusInformation.split(":|,");
         int batteryLevel = Integer.parseInt(tempArray[1]);
-        String currentOperation = tempArray[3].substring(1,tempArray[3].length()-1);
+        String currentOperation = tempArray[3].substring(1, tempArray[3].length() - 1);
         System.out.println(currentOperation);
-        if(batteryLevel <= 11 && !currentOperation.equals("MoveToChargerOperation")){
+        if (batteryLevel <= 11 && !currentOperation.equals("MoveToChargerOperation")) {
             moveToChargerOperation();
         }
     }
@@ -158,9 +157,9 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
 
     @Override
     public String check() {
-        String connection ="";
+        String connection = "";
 
-        if(checkState()==1 ){
+        if (checkState() == 1) {
             connection = "Connected";
         }
 
@@ -171,6 +170,24 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
     @Override
     public String getStatus() {
 
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+
+        String battery = "";
+        String programName = "";
+        String state = "";
+
+
+        String string = restTemplate.getForObject("http://localhost:8082/v1/status", String.class, "");
+
+
+        String[] status = string.split(",");
+        battery = status[0].replace("{\"battery\":", "");
+        programName = status[1].replace("\"program name\":", "");
+        state = status[2].replace("\"state\":", "");
+
+        return state + ", " + battery + "%, " + programName;
+
+
     }
+
 }

@@ -1,11 +1,17 @@
 package com.project;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,19 +52,46 @@ public class ChartController implements Initializable {
 
     @FXML
     private Button startbutton;
-    
+
+    Thread wareHouseStateThread;
+    Thread inventoryThread;
+    Thread agvStatusThread;
+    Thread assemblyProcessThread;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // setting textarea properties
         inventoryprint.setEditable(false);
         inventoryprint.isWrapText();
         inventoryprint.setWrapText(true);
-        inventoryprint.setText(production.prodInventory());
 
-        warehouseprint.setText(production.stateSetter());
-      //  assemblyprint.setText(production.assemblyStatusPrint());
+        // Starting the that updates the inventory textarea
+        InventoryUpdater inventoryUpdater = new InventoryUpdater(100,inventoryprint);
+        inventoryThread = new Thread(inventoryUpdater);
+        inventoryThread.start();
 
-        //agvstatus.setText(production.agvConnectionCheck());
+
+        // Starting thread that updates the warehouse state label
+        WarehouseLabelUpdater labelChecker = new WarehouseLabelUpdater(100, warehouseprint);
+        wareHouseStateThread = new Thread(labelChecker);
+        wareHouseStateThread.start();
+
+        // Starting thread that updates the agv label
+        AGVStatusUpdater agvStatusUpdater = new AGVStatusUpdater(100, agvprint);
+        agvStatusThread = new Thread(agvStatusUpdater);
+        agvStatusThread.start();
+
+        // Starting thread that updates assembly process label
+        AssemblyProcessUpdater assemblyProcessUpdater = new AssemblyProcessUpdater(100, processidlabel);
+        assemblyProcessThread = new Thread(assemblyProcessUpdater);
+        assemblyProcessThread.start();
+
+
+
+
+        // sets connection labels
+        agvstatus.setText(production.agvConnectionCheck());
         warehousestatus.setText(production.warehouseConnectionCheck());
         assemblystatus.setText(production.assemblyConnectionCheck());
 
@@ -72,9 +105,6 @@ public class ChartController implements Initializable {
     }
 
 
-
-    Thread wareHouseThread;
-
     @FXML
     void buttonclicked() {
 
@@ -85,24 +115,19 @@ public class ChartController implements Initializable {
 
         //inventoryprint.setText(production.prodInventory());
 
-
-        /*WarehouseLabelUpdater labelChecker = new WarehouseLabelUpdater(10, warehouseprint);
-        wareHouseThread = new Thread(labelChecker);
-        wareHouseThread.setDaemon(true);
-        wareHouseThread.start();*/
-
        // healthchecklabel.setText(production.);
 
     }
 
+
+
     public class WarehouseLabelUpdater implements Runnable {
 
-
-        private long sleepTime;
+        private int sleepTime;
         private boolean running;
         private Label label;
 
-        public WarehouseLabelUpdater(long sleepTime, Label label) {
+        public WarehouseLabelUpdater(int sleepTime, Label label) {
 
             this.sleepTime = sleepTime;
             this.label = label;
@@ -122,11 +147,125 @@ public class ChartController implements Initializable {
 
                     }
                 });
+                synchronized (this) {
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Interrupted: " + Thread.currentThread());
+                        running = false;
+                    }
+                }
+
+            }
+        }
+    }
+
+    public class InventoryUpdater implements Runnable {
+
+        private int sleepTime;
+        private boolean running;
+        private TextArea textArea;
+
+        public InventoryUpdater(int sleepTime, TextArea textArea) {
+
+            this.sleepTime = sleepTime;
+            this.textArea = textArea;
+        }
+
+        @Override
+        public void run() {
+            running = true;
+            System.out.println("Thread started: " + Thread.currentThread());
+
+            while (running) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        textArea.setText(production.prodInventory());
+
+                    }
+                });
+                synchronized (this) {
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Interrupted: " + Thread.currentThread());
+                        running = false;
+                    }
+                }
+
+            }
+        }
+    }
+
+    public class AGVStatusUpdater implements Runnable {
+
+        private int sleepTime;
+        private boolean running;
+        private Label label;
+
+        public AGVStatusUpdater(int sleepTime, Label label) {
+            this.sleepTime = sleepTime;
+            this.label = label;
+        }
+
+        @Override
+        public void run() {
+            running = true;
+            System.out.println("Thread started: " + Thread.currentThread());
+
+            while (running) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        label.setText(production.agvGetStatus());
+
+                    }
+                });
 
                 synchronized (this) {
                     try {
-                        //Thread.sleep(sleepTime);
-                        wait(sleepTime);
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Interrupted: " + Thread.currentThread());
+                        running = false;
+                    }
+                }
+            }
+        }
+    }
+
+    public class AssemblyProcessUpdater implements Runnable {
+
+        private int sleepTime;
+        private boolean running;
+        private Label label;
+
+        public AssemblyProcessUpdater(int sleepTime, Label label) {
+            this.sleepTime = sleepTime;
+            this.label = label;
+        }
+
+        @Override
+        public void run() {
+            running = true;
+            System.out.println("Thread started: " + Thread.currentThread());
+
+            while (running) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        label.setText(production.assemblyProcessID());
+
+                    }
+                });
+
+                synchronized (this) {
+                    try {
+                        Thread.sleep(sleepTime);
                     } catch (InterruptedException ex) {
                         System.out.println("Interrupted: " + Thread.currentThread());
                         running = false;

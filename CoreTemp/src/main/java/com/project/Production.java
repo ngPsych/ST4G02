@@ -186,4 +186,27 @@ public class Production {
 
         return connect;
     }
+
+    public String agvGetStatus(){
+        String status = "";
+
+        for (Map.Entry<String, IAGVControlSystem> iAGVControlEntry : SpringApp.getApplicationContext().getBeansOfType(IAGVControlSystem.class).entrySet()) {
+            status = iAGVControlEntry.getValue().getStatus();
+
+        }
+
+        return status;
+    }
+
+    public String assemblyProcessID(){
+        String processID = "";
+
+        for (Map.Entry<String, IAssemblyStatus> iAssemblyStatusEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyStatus.class).entrySet()) {
+            processID = iAssemblyStatusEntry.getValue().assemblyProcessIDGetter();
+
+        }
+
+        return processID;
+    }
+
 }
