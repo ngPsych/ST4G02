@@ -14,7 +14,7 @@
         <module>AGV</module>
         <module>Warehouse</module>
         <module>Assembly</module>
-        <module>CoreTemp</module>
+        <module>Core</module>
         <module>CommonAGV</module>
         <module>CommonWarehouse</module>
         <module>CommonAssembly</module>

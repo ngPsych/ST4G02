@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dk.sdu.mmmi.project</groupId>
-    <artifactId>CoreTemp</artifactId>
+    <artifactId>Core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>CoreTemp</name>
-    <description>CoreTemp</description>
+    <name>Core</name>
+    <description>Core</description>
     <properties>
         <java.version>18</java.version>
     </properties>
