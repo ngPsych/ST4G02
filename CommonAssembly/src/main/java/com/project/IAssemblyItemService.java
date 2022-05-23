@@ -1,6 +1,6 @@
 package com.project;
 
-public interface iAssemblyItemService {
+public interface IAssemblyItemService {
 
     void assembleItem();
 

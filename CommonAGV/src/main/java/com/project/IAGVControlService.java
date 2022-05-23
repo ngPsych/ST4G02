@@ -1,6 +1,6 @@
 package com.project;
 
-public interface IAGVControlSystem {
+public interface IAGVControlService {
 
     String getStatus();
 

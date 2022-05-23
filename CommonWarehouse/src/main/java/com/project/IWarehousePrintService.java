@@ -1,6 +1,6 @@
 package com.project;
 
-public interface IWarehousePrint {
+public interface IWarehousePrintService {
 
     String getState();
 

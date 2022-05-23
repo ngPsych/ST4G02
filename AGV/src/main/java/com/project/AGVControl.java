@@ -3,13 +3,12 @@ package com.project;
 import org.json.JSONObject;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.*;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 @ComponentScan
-public class AGVControlSystem implements IAGVControlSystem, IMoveService {
+public class AGVControl implements IAGVControlService, IMoveService {
 
 
     // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er

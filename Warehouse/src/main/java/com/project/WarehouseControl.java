@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ComponentScan
-public class WarehouseConnect implements IItemService, IWarehousePrint {
+public class WarehouseControl implements IItemService, IWarehousePrintService {
 
     IEmulatorService_Service service = new IEmulatorService_Service();
     IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();

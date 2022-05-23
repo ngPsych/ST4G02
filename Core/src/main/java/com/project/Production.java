@@ -6,7 +6,7 @@ public class Production {
 
     static int prompt;
     static int tempPrompt;
-    int i = WarehouseConnect.trayId;
+    int i = WarehouseControl.trayId;
 
 
     public void startProduction() {
@@ -18,12 +18,12 @@ public class Production {
             }
         }
 
-        System.out.println(WarehouseConnect.trayId + "SJDJASJDA");
-        while (WarehouseConnect.trayId <= 9 && prompt <= 10) {
+        System.out.println(WarehouseControl.trayId + "SJDJASJDA");
+        while (WarehouseControl.trayId <= 9 && prompt <= 10) {
             // Start the connection to the MQTT immediately
 
         if(prompt == 0) {
-            for (Map.Entry<String, IWarehousePrint> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrint.class).entrySet()) {
+            for (Map.Entry<String, IWarehousePrintService> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrintService.class).entrySet()) {
                 iGetInventory.getValue().getInventory();
                 prompt = 1;
             }
@@ -68,7 +68,7 @@ public class Production {
 
             if (prompt == 5) {
 
-                for (Map.Entry<String, iAssemblyItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
+                for (Map.Entry<String, IAssemblyItemService> iConnectEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyItemService.class).entrySet()) {
                     iConnectEntry.getValue().assembleItem();
 
                 }
@@ -137,7 +137,7 @@ public class Production {
     public String prodInventory() {
         String inventory = "";
 
-        for (Map.Entry<String, IWarehousePrint> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrint.class).entrySet()) {
+        for (Map.Entry<String, IWarehousePrintService> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrintService.class).entrySet()) {
             inventory = iGetInventory.getValue().getInventory();
 
         }
@@ -148,7 +148,7 @@ public class Production {
     public String stateSetter() {
         String state = "";
 
-        for (Map.Entry<String, IWarehousePrint> iGetState : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrint.class).entrySet()) {
+        for (Map.Entry<String, IWarehousePrintService> iGetState : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrintService.class).entrySet()) {
             state = iGetState.getValue().getState();
 
         }
@@ -157,7 +157,7 @@ public class Production {
 
     public String agvConnectionCheck() {
         String connect = "";
-        for (Map.Entry<String, IAGVControlSystem> iagvConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IAGVControlSystem.class).entrySet()) {
+        for (Map.Entry<String, IAGVControlService> iagvConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IAGVControlService.class).entrySet()) {
             connect = iagvConnectionCheckerEntry.getValue().check();
 
         }
@@ -167,7 +167,7 @@ public class Production {
     public String warehouseConnectionCheck() {
         String connect = "";
 
-        for (Map.Entry<String, IWarehousePrint> iWarehouseConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrint.class).entrySet()) {
+        for (Map.Entry<String, IWarehousePrintService> iWarehouseConnectionCheckerEntry : SpringApp.getApplicationContext().getBeansOfType(IWarehousePrintService.class).entrySet()) {
             connect = iWarehouseConnectionCheckerEntry.getValue().check();
 
         }
@@ -179,7 +179,7 @@ public class Production {
     public String assemblyConnectionCheck() {
         String connect = "";
 
-        for (Map.Entry<String, iAssemblyItemService> iAssemblyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
+        for (Map.Entry<String, IAssemblyItemService> iAssemblyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyItemService.class).entrySet()) {
             connect = iAssemblyItemServiceEntry.getValue().connect();
 
         }
@@ -190,7 +190,7 @@ public class Production {
     public String agvGetStatus(){
         String status = "";
 
-        for (Map.Entry<String, IAGVControlSystem> iAGVControlEntry : SpringApp.getApplicationContext().getBeansOfType(IAGVControlSystem.class).entrySet()) {
+        for (Map.Entry<String, IAGVControlService> iAGVControlEntry : SpringApp.getApplicationContext().getBeansOfType(IAGVControlService.class).entrySet()) {
             status = iAGVControlEntry.getValue().getStatus();
 
         }
@@ -203,7 +203,7 @@ public class Production {
     public String assemblyLabelMain(){
         String label = "";
 
-        for (Map.Entry<String, IAssemblyPrint> iAssemblyLabelEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyPrint.class).entrySet()) {
+        for (Map.Entry<String, IAssemblyPrintService> iAssemblyLabelEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyPrintService.class).entrySet()) {
             label = iAssemblyLabelEntry.getValue().labelPrint();
 
         }
@@ -214,7 +214,7 @@ public class Production {
     public String assemblyHealth(){
         String label = "";
 
-        for (Map.Entry<String, IAssemblyPrint> iAssemblyLabelEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyPrint.class).entrySet()) {
+        for (Map.Entry<String, IAssemblyPrintService> iAssemblyLabelEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyPrintService.class).entrySet()) {
             label = iAssemblyLabelEntry.getValue().healthPrint();
 
         }

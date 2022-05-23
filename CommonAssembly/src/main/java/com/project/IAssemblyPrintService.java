@@ -1,6 +1,6 @@
 package com.project;
 
-public interface IAssemblyPrint {
+public interface IAssemblyPrintService {
 
     String labelPrint();
 
