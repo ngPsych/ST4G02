@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -49,6 +50,7 @@ public class ChartController implements Initializable {
 
     @FXML
     private Button startbutton;
+
 
     Thread wareHouseStateThread;
     Thread inventoryThread;
@@ -101,6 +103,7 @@ public class ChartController implements Initializable {
     void buttonclickedstop() {
 
         production.pauseProduction();
+        System.out.println("It will stop, wait for it");
 
     }
 
