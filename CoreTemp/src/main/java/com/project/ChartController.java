@@ -45,9 +45,6 @@ public class ChartController implements Initializable {
     private Label warehousestatus;
 
     @FXML
-    private Label processidlabel;
-
-    @FXML
     private Label healthchecklabel;
 
     @FXML
@@ -81,7 +78,7 @@ public class ChartController implements Initializable {
         wareHouseStateThread.start();
 
         // Starting thread that updates the agv label
-        AGVStatusUpdater agvStatusUpdater = new AGVStatusUpdater(100, agvprint, healthchecklabel);
+        AGVStatusUpdater agvStatusUpdater = new AGVStatusUpdater(100, agvprint, healthchecklabel, processprint);
         agvStatusThread = new Thread(agvStatusUpdater);
         agvStatusThread.start();
 
@@ -209,11 +206,13 @@ public class ChartController implements Initializable {
         private boolean running;
         private Label label;
         private Label label2;
+        private TextArea textArea;
 
-        public AGVStatusUpdater(int sleepTime, Label label , Label label2) {
+        public AGVStatusUpdater(int sleepTime, Label label , Label label2, TextArea textArea) {
             this.sleepTime = sleepTime;
             this.label = label;
             this.label2 = label2;
+            this.textArea = textArea;
         }
 
         @Override
@@ -228,13 +227,15 @@ public class ChartController implements Initializable {
 
                         label.setText(production.agvGetStatus());
 
+                        if (label.getText().contains("PickAssemblyOperation")){
+                            label2.setText(production.assemblyHealth());
+                        }
+
                         if(label.getText().contains("PutWarehouseOperation")){
                             label2.setText("");
                         }
 
-                        if (label.getText().contains("PickAssemblyOperation")){
-                            label2.setText(production.assemblyHealth());
-                        }
+
 
                     }
                 });

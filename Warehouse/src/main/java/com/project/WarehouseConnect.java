@@ -58,17 +58,23 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
 
     @Override
     public String getInventory() {
-
         String inventory = iEmulatorService.getInventory();
 
-        if (inventory.contains("State\":0")) {
-            inventory = inventory.replace(",\"State\":0", "");
-        } else if (inventory.contains("State\":1")) {
-            inventory = inventory.replace(",\"State\":1", "");
-        }
+        String array[] = inventory.split(",");
 
+        String tray1 = array[0].replace("{\"Inventory\":[", "") + " " + array[1].replace("","");
+        String tray2 = array[2].replace("}", "") + " " + array[3].replace("{","");
+        String tray3 = array[4].replace("}", "") + " " + array[5].replace("{","");
+        String tray4 = array[6].replace("}", "") + " " + array[7].replace("{","");
+        String tray5 = array[8].replace("}", "") + " " + array[9].replace("{","");
+        String tray6 = array[10].replace("}", "") + " " + array[11].replace("{","");
+        String tray7 = array[12].replace("}", "") + " " + array[13].replace("{","");
+        String tray8 = array[14].replace("}", "") + " " + array[15].replace("{","");
+        String tray9 = array[16].replace("}", "") + " " + array[17].replace("{","");
+        String tray10 = array[18].replace("}", "") + " " + array[19].replace("{]","");
 
-        return inventory;
+        return tray1 + "\n" + tray2 + "\n" +tray3 + "\n" + tray4 + "\n" + tray5 +
+                "\n" + tray6 + "\n" + tray7 + "\n" + tray8 + "\n" + tray9 + "\n" + tray10;
     }
 
     @Override

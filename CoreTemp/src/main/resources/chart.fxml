@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="800" minHeight="425.0" minWidth="-Infinity" prefHeight="527.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ChartController">
+<AnchorPane maxHeight="-Infinity" maxWidth="800" minHeight="425.0" minWidth="-Infinity" prefHeight="527.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ChartController">
 
     <children>
       <Button fx:id="startbutton" layoutX="18.0" layoutY="129.0" mnemonicParsing="false" onAction="#buttonclicked" prefHeight="25.0" prefWidth="61.0" text="Start" />
       <Button layoutX="18.0" layoutY="158.0" mnemonicParsing="false" onAction="#buttonclickedstop" prefHeight="25.0" prefWidth="60.0" text="Stop" />
-      <TextArea fx:id="inventoryprint" layoutX="355.0" layoutY="58.0" prefHeight="220.0" prefWidth="200.0" />
+      <TextArea fx:id="inventoryprint" layoutX="355.0" layoutY="58.0" prefHeight="179.0" prefWidth="200.0" />
       <Label layoutX="430.0" layoutY="37.0" text="Inventory" />
       <Label layoutX="18.0" layoutY="14.0" text="Connection Status" />
       <HBox layoutX="21.0" layoutY="37.0" prefHeight="53.0" prefWidth="193.0">
@@ -35,8 +31,6 @@
       </HBox>
       <Label layoutX="88.0" layoutY="133.0" text="Start Production" />
       <Label layoutX="89.0" layoutY="162.0" text="Stop Production" />
-      <TextArea fx:id="processprint" layoutX="355.0" layoutY="301.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label layoutX="408.0" layoutY="284.0" text="Production Status" />
       <VBox layoutX="18.0" layoutY="201.0" prefHeight="300.0" prefWidth="287.0">
          <children>
             <Label text="Warehouse" />
