@@ -2,13 +2,10 @@ package com.project;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.util.Map;
 
 public class SpringApp extends Application {
 
@@ -24,7 +21,7 @@ public class SpringApp extends Application {
 
     public static AnnotationConfigApplicationContext getApplicationContext() {
         if (applicationContext == null) {
-            applicationContext = (AnnotationConfigApplicationContext) new SpringApplicationBuilder(CoreTempApplication.class).run();
+            applicationContext = (AnnotationConfigApplicationContext) new SpringApplicationBuilder(CoreApplication.class).run();
         }
         return applicationContext; //indeholder alle beans
     }
