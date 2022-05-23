@@ -4,16 +4,19 @@ import java.util.Map;
 
 public class Production {
 
-    int prompt = 0;
+    static int prompt;
+    static int tempPrompt;
     int i = WarehouseConnect.trayId;
 
     //TODO - VI BURDE NOK STARTE FRA CHARGING STATION OG SÅ BEVÆGE OS TIL WAREHOUSE.
     public void startProduction() {
+        prompt = tempPrompt;
 
-        for (Map.Entry<String, IMoveService> iMoveToWarehouseServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IMoveService.class).entrySet()) {
-            iMoveToWarehouseServiceEntry.getValue().moveToWarehouse();
+        if(prompt == 0) {
+            for (Map.Entry<String, IMoveService> iMoveToWarehouseServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IMoveService.class).entrySet()) {
+                iMoveToWarehouseServiceEntry.getValue().moveToWarehouse();
+            }
         }
-
 
         /*
         for (Map.Entry<String, iAssemblyItemService> iAssemblyItemServiceEntry : SpringApp.getApplicationContext().getBeansOfType(iAssemblyItemService.class).entrySet()) {
@@ -21,14 +24,15 @@ public class Production {
         }*/
 
         System.out.println(WarehouseConnect.trayId + "SJDJASJDA");
-        while (WarehouseConnect.trayId <= 10) {
-            System.out.println(WarehouseConnect.trayId + " JAAJAJAJAA");
+        while (WarehouseConnect.trayId <= 9 && prompt <= 10) {
             // Start the connection to the MQTT immediately
 
+        if(prompt == 0) {
             for (Map.Entry<String, IGetInventory> iGetInventory : SpringApp.getApplicationContext().getBeansOfType(IGetInventory.class).entrySet()) {
                 iGetInventory.getValue().getInventory();
                 prompt = 1;
             }
+        }
 
 
             if (prompt == 1) {
@@ -38,7 +42,6 @@ public class Production {
                     prompt++;
                 }
             }
-            System.out.println(WarehouseConnect.trayId + " AAAAAAAAAAAAAAAAAH");
 
             if (prompt == 2) {
                 for (Map.Entry<String, IPickUpWarehouseService> iPickupWarehouseServiceEntry : SpringApp.getApplicationContext().getBeansOfType(IPickUpWarehouseService.class).entrySet()) {
@@ -122,13 +125,21 @@ public class Production {
                     iConnectEntry.getValue().insertItemInWarehouse();
 
                 }
+                prompt++;
 
 
             }
-            prompt = 0;
+            if(prompt == 10) {
+                prompt = 0;
+            }
         }
         System.out.println("The warehouse is now filled.");
 
+    }
+
+    public void pauseProduction(){
+        tempPrompt = prompt;
+        prompt = 20;
     }
 
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

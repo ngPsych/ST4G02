@@ -37,7 +37,7 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
 
     @Override
     public void moveToAssembly() {
-        continueNextOperation();
+      continueNextOperation();
         loadProgram("MoveToAssemblyOperation", "1");
         chooseState("2");
         System.out.println("Driving to the Assembly station");
@@ -65,7 +65,6 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
         loadProgram("MoveToStorageOperation", "1");
         chooseState("2");
         System.out.println(" Driving to the warehouse");
-
     }
 
     @Override
@@ -91,7 +90,7 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
         while (checkState() == 2 || checkState() == 3) {
             try {
                 Thread.sleep(100);
-                System.out.println("hello");
+                //System.out.println("hello");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
