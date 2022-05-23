@@ -58,14 +58,13 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
 
     @Override
     public String getInventory() {
-        System.out.println(iEmulatorService.getInventory());
 
         String inventory = iEmulatorService.getInventory();
 
         if (inventory.contains("State\":0")) {
-            inventory = inventory.replace(",\"State\":0","");
+            inventory = inventory.replace(",\"State\":0", "");
         } else if (inventory.contains("State\":1")) {
-            inventory = inventory.replace(",\"State\":1","");
+            inventory = inventory.replace(",\"State\":1", "");
         }
 
 
@@ -75,19 +74,22 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
     @Override
     public String getState() {
 
-        IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
 
+        IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
         String state = iEmulatorService.getInventory();
 
         if (state.contains("State\":0")) {
             state = "0";
         } else if (state.contains("State\":1")) {
             state = "1";
-        } else if(state.contains("State\":2")){
+        } else if (state.contains("State\":2")) {
             state = "2";
         }
 
+
         return state;
+
+
     }
 
     @Override
@@ -101,7 +103,7 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
             connection = "Connected";
         } else if (connection.contains("State\":1")) {
             connection = "Connected";
-        } else if(connection.contains("State\":2")){
+        } else if (connection.contains("State\":2")) {
             connection = "Connected";
         }
 
