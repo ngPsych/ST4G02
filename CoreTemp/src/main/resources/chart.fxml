@@ -12,7 +12,7 @@
     <children>
       <Button fx:id="startbutton" layoutX="18.0" layoutY="129.0" mnemonicParsing="false" onAction="#buttonclicked" prefHeight="25.0" prefWidth="61.0" text="Start" />
       <Button layoutX="18.0" layoutY="158.0" mnemonicParsing="false" onAction="#buttonclickedstop" prefHeight="25.0" prefWidth="60.0" text="Stop" />
-      <TextArea fx:id="inventoryprint" layoutX="355.0" layoutY="58.0" prefHeight="200.0" prefWidth="200.0" />
+      <TextArea fx:id="inventoryprint" layoutX="355.0" layoutY="58.0" prefHeight="220.0" prefWidth="200.0" />
       <Label layoutX="430.0" layoutY="37.0" text="Inventory" />
       <Label layoutX="18.0" layoutY="14.0" text="Connection Status" />
       <HBox layoutX="21.0" layoutY="37.0" prefHeight="53.0" prefWidth="193.0">
@@ -51,11 +51,9 @@
             <Label text="State, Last Operation, Current Operation " />
             <Label fx:id="assemblyprint" text="Label" />
             <Label />
-            <Label text="Assembly ProcessID" />
-            <Label fx:id="processidlabel" text="Label" />
-            <Label />
             <Label text="Healthy Operation" />
             <Label fx:id="healthchecklabel" text="Label" />
+            <Label />
          </children>
       </VBox>
    </children>

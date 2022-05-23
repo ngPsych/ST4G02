@@ -209,15 +209,30 @@ public class Production {
         return status;
     }
 
-    public String assemblyProcessID(){
-        String processID = "";
 
-        for (Map.Entry<String, IAssemblyStatus> iAssemblyStatusEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyStatus.class).entrySet()) {
-            processID = iAssemblyStatusEntry.getValue().assemblyProcessIDGetter();
+
+    public String assemblyLabelMain(){
+        String label = "";
+
+        for (Map.Entry<String, IAssemblyLabelPrinter> iAssemblyLabelEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyLabelPrinter.class).entrySet()) {
+            label = iAssemblyLabelEntry.getValue().labelPrint();
 
         }
 
-        return processID;
+        return label;
     }
+
+    public String assemblyHealth(){
+        String label = "";
+
+        for (Map.Entry<String, IAssemblyPrintHealth> iAssemblyLabelEntry : SpringApp.getApplicationContext().getBeansOfType(IAssemblyPrintHealth.class).entrySet()) {
+            label = iAssemblyLabelEntry.getValue().healthPrint();
+
+        }
+
+        return label;
+    }
+
+
 
 }

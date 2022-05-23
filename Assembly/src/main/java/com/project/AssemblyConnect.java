@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
-public class AssemblyConnect implements iAssemblyItemService, IAssemblyStatus {
+public class AssemblyConnect implements iAssemblyItemService, IAssemblyLabelPrinter, IAssemblyPrintHealth{
 
     private static final String OPERATION = "emulator/operation";
     private static final String TOPIC = "emulator/status";
@@ -52,15 +52,6 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyStatus {
     }
 
     @Override
-    public String assemblyProcessIDGetter() {
-
-        String message = readMessage().toString();
-
-        return message;
-
-    }
-
-    @Override
     public String connect() {
         System.out.println("assemblyConnect here");
         //opretter id for MQTT client
@@ -95,6 +86,7 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyStatus {
             this.publisher.subscribe(AssemblyConnect.HEALTH, (topic, msg) -> {
                 String payload = new String(msg.getPayload(), StandardCharsets.UTF_8);
                 System.out.println(payload);
+                healthSetter(payload);
                 receivedSignal.countDown();
             });
             receivedSignal.await(1, TimeUnit.MINUTES);
@@ -106,8 +98,43 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyStatus {
         return true;
     }
 
+    private String health ="";
+
+    public void healthSetter(String newHealth) {
+        this.health = newHealth;
+    }
+
+    public String getHealth() {
+
+        if (health == null) {
+            return "";
+        }
+
+        return health;
+    }
+
+    @Override
+    public String healthPrint()  {
+
+        getHealth();
+
+        if (health != "") {
+
+
+
+            return health;
+        }
+
+        return "";
+    }
+
+
+
+
+
     @Override
     public void subscription() {
+
         CountDownLatch receivedSignal = new CountDownLatch(1);
 
         // subscriber til et enkelt topic
@@ -116,6 +143,8 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyStatus {
             this.publisher.subscribe(AssemblyConnect.TOPIC, (topic, msg) -> {
                 String payload = new String(msg.getPayload(), StandardCharsets.UTF_8);
                 System.out.println(payload);
+                labelSetter(payload);
+
                 receivedSignal.countDown();
             });
 
@@ -128,37 +157,38 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyStatus {
 
     }
 
+    private String label ="";
 
+    public void labelSetter(String newLabel) {
+        this.label = newLabel;
+    }
 
-    public String labelPrint() throws MqttException {
+    public String getLabel() {
 
-        CountDownLatch receivedSignal = new CountDownLatch(1);
-
-        publisher.subscribe(AssemblyConnect.TOPIC);
-        
-
-
-        // subscriber til et enkelt topic
-        try {
-            System.out.println("assembly subscription");
-            this.publisher.subscribe(AssemblyConnect.TOPIC, (topic, msg) -> {
-                String payload = new String(msg.getPayload(), StandardCharsets.UTF_8);
-                System.out.println(payload);
-                receivedSignal.countDown();
-            });
-
-            receivedSignal.await(1, TimeUnit.MINUTES);
-        } catch (MqttException ex) {
-            ex.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (label == null) {
+            return "";
         }
 
+        return label;
+    }
 
 
+    @Override
+    public String labelPrint()  {
 
+        getLabel();
 
-        return null;
+        if (label != "") {
+
+            String array[] = label.split(",");
+            String lastOperation = array[0].replace("{\"LastOperation\":", "");
+            String currentOperation = array[1].replace("\"CurrentOperation\":", "");
+            String state = array[2].replace("\"State\":", "");
+
+            return state + ", " + lastOperation + ", " + currentOperation;
+        }
+
+        return "";
     }
 
 }

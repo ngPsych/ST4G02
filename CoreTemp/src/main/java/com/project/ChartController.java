@@ -56,10 +56,13 @@ public class ChartController implements Initializable {
     Thread wareHouseStateThread;
     Thread inventoryThread;
     Thread agvStatusThread;
-    Thread assemblyProcessThread;
+    Thread assemblyLabelThread;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        healthchecklabel.setText("");
 
         // setting textarea properties
         inventoryprint.setEditable(false);
@@ -67,7 +70,7 @@ public class ChartController implements Initializable {
         inventoryprint.setWrapText(true);
 
         // Starting the that updates the inventory textarea
-        InventoryUpdater inventoryUpdater = new InventoryUpdater(100,inventoryprint);
+        InventoryUpdater inventoryUpdater = new InventoryUpdater(100, inventoryprint);
         inventoryThread = new Thread(inventoryUpdater);
         inventoryThread.start();
 
@@ -78,15 +81,14 @@ public class ChartController implements Initializable {
         wareHouseStateThread.start();
 
         // Starting thread that updates the agv label
-        AGVStatusUpdater agvStatusUpdater = new AGVStatusUpdater(100, agvprint);
+        AGVStatusUpdater agvStatusUpdater = new AGVStatusUpdater(100, agvprint, healthchecklabel);
         agvStatusThread = new Thread(agvStatusUpdater);
         agvStatusThread.start();
 
-        // Starting thread that updates assembly process label
-        AssemblyProcessUpdater assemblyProcessUpdater = new AssemblyProcessUpdater(100, processidlabel);
-        assemblyProcessThread = new Thread(assemblyProcessUpdater);
-        assemblyProcessThread.start();
-
+        // Starting thread that updates assembly  label
+        AssemblyLabelUpdater assemblyLabelUpdater = new AssemblyLabelUpdater(100, assemblyprint);
+        assemblyLabelThread = new Thread(assemblyLabelUpdater);
+        assemblyLabelThread.start();
 
 
 
@@ -96,11 +98,12 @@ public class ChartController implements Initializable {
         assemblystatus.setText(production.assemblyConnectionCheck());
 
 
-
     }
 
     @FXML
     void buttonclickedstop() {
+
+        production.pauseProduction();
 
     }
 
@@ -109,16 +112,15 @@ public class ChartController implements Initializable {
     void buttonclicked() {
 
         //production.startProduction();
-        new Thread(()->{
+        new Thread(() -> {
             production.startProduction();
         }).start();
 
         //inventoryprint.setText(production.prodInventory());
 
-       // healthchecklabel.setText(production.);
+        // healthchecklabel.setText(production.);
 
     }
-
 
 
     public class WarehouseLabelUpdater implements Runnable {
@@ -166,10 +168,12 @@ public class ChartController implements Initializable {
         private boolean running;
         private TextArea textArea;
 
+
         public InventoryUpdater(int sleepTime, TextArea textArea) {
 
             this.sleepTime = sleepTime;
             this.textArea = textArea;
+
         }
 
         @Override
@@ -204,10 +208,12 @@ public class ChartController implements Initializable {
         private int sleepTime;
         private boolean running;
         private Label label;
+        private Label label2;
 
-        public AGVStatusUpdater(int sleepTime, Label label) {
+        public AGVStatusUpdater(int sleepTime, Label label , Label label2) {
             this.sleepTime = sleepTime;
             this.label = label;
+            this.label2 = label2;
         }
 
         @Override
@@ -222,6 +228,14 @@ public class ChartController implements Initializable {
 
                         label.setText(production.agvGetStatus());
 
+                        if(label.getText().contains("PutWarehouseOperation")){
+                            label2.setText("");
+                        }
+
+                        if (label.getText().contains("PickAssemblyOperation")){
+                            label2.setText(production.assemblyHealth());
+                        }
+
                     }
                 });
 
@@ -237,13 +251,13 @@ public class ChartController implements Initializable {
         }
     }
 
-    public class AssemblyProcessUpdater implements Runnable {
+    public class AssemblyLabelUpdater implements Runnable {
 
         private int sleepTime;
         private boolean running;
         private Label label;
 
-        public AssemblyProcessUpdater(int sleepTime, Label label) {
+        public AssemblyLabelUpdater(int sleepTime, Label label) {
             this.sleepTime = sleepTime;
             this.label = label;
         }
@@ -258,7 +272,7 @@ public class ChartController implements Initializable {
                     @Override
                     public void run() {
 
-                        label.setText(production.assemblyProcessID());
+                        label.setText(production.assemblyLabelMain());
 
                     }
                 });
@@ -274,7 +288,6 @@ public class ChartController implements Initializable {
             }
         }
     }
-
 
 
 
