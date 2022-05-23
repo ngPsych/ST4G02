@@ -10,8 +10,8 @@
 <AnchorPane prefHeight="368.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ChartController">
 
     <children>
-      <Button fx:id="startbutton" layoutX="280.0" layoutY="31.0" mnemonicParsing="false" onAction="#buttonclicked" prefHeight="25.0" prefWidth="61.0" text="Start" />
-      <Button layoutX="280.0" layoutY="60.0" mnemonicParsing="false" onAction="#buttonclickedstop" prefHeight="25.0" prefWidth="60.0" text="Stop" />
+      <Button fx:id="startbutton" layoutX="280.0" layoutY="31.0" mnemonicParsing="false" onAction="#startButton" prefHeight="25.0" prefWidth="61.0" text="Start" />
+      <Button layoutX="280.0" layoutY="60.0" mnemonicParsing="false" onAction="#stopButton" prefHeight="25.0" prefWidth="60.0" text="Stop" />
       <TextArea fx:id="inventoryprint" layoutX="280.0" layoutY="134.0" prefHeight="179.0" prefWidth="200.0" />
       <Label layoutX="355.0" layoutY="111.0" text="Inventory" />
       <Label layoutX="18.0" layoutY="14.0" text="Connection Status" />

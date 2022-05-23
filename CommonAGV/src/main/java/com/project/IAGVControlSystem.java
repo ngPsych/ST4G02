@@ -2,9 +2,8 @@ package com.project;
 
 public interface IAGVControlSystem {
 
-void loadProgram(String program, String state);
+    String getStatus();
 
-String getStatus();
+    String check();
 
-void batteryCheck(String statusInformation);
 }

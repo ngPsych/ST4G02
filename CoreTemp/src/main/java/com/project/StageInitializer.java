@@ -24,10 +24,6 @@ public class StageInitializer implements ApplicationListener<SpringApp.StageRead
     @Value("classpath:/chart.fxml")
     private Resource chartResource;
 
-    //registry
-    @Autowired
-    private AnnotationConfigApplicationContext applicationContext2;
-
     private String applicationTitle;
 
     private ApplicationContext applicationContext;
@@ -50,14 +46,8 @@ public class StageInitializer implements ApplicationListener<SpringApp.StageRead
             FXMLLoader fxmlLoader = new FXMLLoader(chartResource.getURL());
             Parent parent = fxmlLoader.load();
 
-
-            // Denne giver runtime exeption
-            //fxmlLoader.setControllerFactory(aClasa -> applicationContext.getBean(aClass));
-            //fxmlLoader.setControllerFactory(AssemblyConnect -> applicationContext.getBean(AssemblyConnect.class));
-
-
             Stage stage = event.getStage();
-            stage.setScene(new Scene(parent, 800, 600));
+            stage.setScene(new Scene(parent, 500, 360));
 
             stage.show();
 

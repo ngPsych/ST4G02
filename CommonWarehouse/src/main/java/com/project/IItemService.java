@@ -1,6 +1,8 @@
 package com.project;
 
-public interface IInsertItemWarehouseService {
+public interface IItemService {
+
+    void readyItem();
 
     void insertItemInWarehouse();
 

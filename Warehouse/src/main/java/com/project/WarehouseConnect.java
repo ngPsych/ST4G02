@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ComponentScan
-public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouseService, IGetInventory, IGetState, IWarehouseConnectionChecker {
+public class WarehouseConnect implements IItemService, IWarehousePrint {
 
     IEmulatorService_Service service = new IEmulatorService_Service();
     IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
@@ -34,7 +34,6 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
             System.out.println(jsonStrings[i]);
             jsonObjects[i] = new JSONObject(jsonStrings[i]);
 
-            //TODO WE SHOULD RETURN SOME SORT OF VALUE SO THAT THE PRODUCTION LINE STOPS WITH NO INGREDIENTS.
             if (jsonObjects[i].getString("Content").equals("Item " + trayId)) {
                 iEmulatorService.pickItem(trayId);
                 System.out.println("Warehouse item ready for pick up");
@@ -117,18 +116,6 @@ public class WarehouseConnect implements IReadyItemService, IInsertItemWarehouse
     }
 
 
-
-
-   /*
-    @Override
-    public void connect() {
-
-        IEmulatorService_Service service = new IEmulatorService_Service();
-        IEmulatorService iEmulatorService = service.getBasicHttpBindingIEmulatorService();
-
-        System.out.println(iEmulatorService.getInventory());
-
-    }*/
 
 
 }

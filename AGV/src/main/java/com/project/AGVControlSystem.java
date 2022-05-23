@@ -9,13 +9,13 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ComponentScan
-public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyService, IMoveService, IPutDownItemService, IPickUpWarehouseService, IAGVConnectionChecker {
+public class AGVControlSystem implements IAGVControlSystem, IMoveService {
 
 
     // Disse 2 pick up og put down metoder er lavet med tanken at samle noget op og sætte det ned er det samme ligemeget hvor agv'en er
     // ellers lav pick up og put down til både warehouse og assembly station.
 
-    @Override
+
     public void batteryCheck(String statusInformation) {
         String[] tempArray = statusInformation.split(":|,");
         int batteryLevel = Integer.parseInt(tempArray[1]);
@@ -131,7 +131,6 @@ public class AGVControlSystem implements IAGVControlSystem, IPickupItemAssemblyS
     }
 
 
-    @Override
     public void loadProgram(String program, String state) {
         // Put Request
         RestTemplate restTemplate = new RestTemplate();

@@ -1,18 +1,12 @@
 package com.project;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
+import javafx.scene.image.Image;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,10 +42,6 @@ public class ChartController implements Initializable {
     @FXML
     private Label healthchecklabel;
 
-    @FXML
-    private Button startbutton;
-
-
     Thread wareHouseStateThread;
     Thread inventoryThread;
     Thread agvStatusThread;
@@ -60,6 +50,7 @@ public class ChartController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
         healthchecklabel.setText("");
 
@@ -89,8 +80,6 @@ public class ChartController implements Initializable {
         assemblyLabelThread = new Thread(assemblyLabelUpdater);
         assemblyLabelThread.start();
 
-
-
         // sets connection labels
         agvstatus.setText(production.agvConnectionCheck());
         warehousestatus.setText(production.warehouseConnectionCheck());
@@ -100,7 +89,7 @@ public class ChartController implements Initializable {
     }
 
     @FXML
-    void buttonclickedstop() {
+    void stopButton() {
 
         production.pauseProduction();
         System.out.println("It will stop, wait for it");
@@ -109,16 +98,11 @@ public class ChartController implements Initializable {
 
 
     @FXML
-    void buttonclicked() {
+    void startButton() {
 
-        //production.startProduction();
         new Thread(() -> {
             production.startProduction();
         }).start();
-
-        //inventoryprint.setText(production.prodInventory());
-
-        // healthchecklabel.setText(production.);
 
     }
 
@@ -211,7 +195,7 @@ public class ChartController implements Initializable {
         private Label label2;
         private TextArea textArea;
 
-        public AGVStatusUpdater(int sleepTime, Label label , Label label2, TextArea textArea) {
+        public AGVStatusUpdater(int sleepTime, Label label, Label label2, TextArea textArea) {
             this.sleepTime = sleepTime;
             this.label = label;
             this.label2 = label2;
@@ -230,15 +214,13 @@ public class ChartController implements Initializable {
 
                         label.setText(production.agvGetStatus());
 
-                        if (label.getText().contains("PickAssemblyOperation")){
+                        if (label.getText().contains("PickAssemblyOperation")) {
                             label2.setText(production.assemblyHealth());
                         }
 
-                        if(label.getText().contains("PutWarehouseOperation")){
+                        if (label.getText().contains("PutWarehouseOperation")) {
                             label2.setText("");
                         }
-
-
 
                     }
                 });
@@ -292,8 +274,6 @@ public class ChartController implements Initializable {
             }
         }
     }
-
-
 
 
 }

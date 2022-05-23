@@ -7,23 +7,17 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Component
-public class AssemblyConnect implements iAssemblyItemService, IAssemblyLabelPrinter, IAssemblyPrintHealth{
+public class AssemblyConnect implements iAssemblyItemService, IAssemblyPrint {
 
     private static final String OPERATION = "emulator/operation";
     private static final String TOPIC = "emulator/status";
     private static final String HEALTH = "emulator/checkhealth";
     IMqttClient publisher;
 
-    public static void main(String[] args) {
-        AssemblyConnect as = new AssemblyConnect();
-        as.connect();
-        as.subscription();
-        as.assembleItem();
-
-    }
+    private String label = "";
+    private String health = "";
 
     @Override
     public void assembleItem() {
@@ -78,61 +72,6 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyLabelPrin
     }
 
     @Override
-    public boolean isHealthy() {
-        CountDownLatch receivedSignal = new CountDownLatch(1);
-        // subscriber til et enkelt topic
-
-        try {
-            this.publisher.subscribe(AssemblyConnect.HEALTH, (topic, msg) -> {
-                String payload = new String(msg.getPayload(), StandardCharsets.UTF_8);
-                System.out.println(payload);
-                healthSetter(payload);
-                receivedSignal.countDown();
-            });
-            receivedSignal.await(1, TimeUnit.MINUTES);
-        } catch (MqttException ex) {
-            ex.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    private String health ="";
-
-    public void healthSetter(String newHealth) {
-        this.health = newHealth;
-    }
-
-    public String getHealth() {
-
-        if (health == null) {
-            return "";
-        }
-
-        return health;
-    }
-
-    @Override
-    public String healthPrint()  {
-
-        getHealth();
-
-        if (health != "") {
-
-
-
-            return health;
-        }
-
-        return "";
-    }
-
-
-
-
-
-    @Override
     public void subscription() {
 
         CountDownLatch receivedSignal = new CountDownLatch(1);
@@ -157,7 +96,53 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyLabelPrin
 
     }
 
-    private String label ="";
+    @Override
+    public boolean isHealthy() {
+        CountDownLatch receivedSignal = new CountDownLatch(1);
+        // subscriber til et enkelt topic
+
+        try {
+            this.publisher.subscribe(AssemblyConnect.HEALTH, (topic, msg) -> {
+                String payload = new String(msg.getPayload(), StandardCharsets.UTF_8);
+                System.out.println(payload);
+                healthSetter(payload);
+                receivedSignal.countDown();
+            });
+            receivedSignal.await(1, TimeUnit.MINUTES);
+        } catch (MqttException ex) {
+            ex.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+
+    public void healthSetter(String newHealth) {
+        this.health = newHealth;
+    }
+
+    public String getHealth() {
+
+        if (health == null) {
+            return "";
+        }
+
+        return health;
+    }
+
+    @Override
+    public String healthPrint() {
+
+        getHealth();
+
+        if (health != "") {
+
+            return health;
+        }
+
+        return "";
+    }
 
     public void labelSetter(String newLabel) {
         this.label = newLabel;
@@ -174,7 +159,7 @@ public class AssemblyConnect implements iAssemblyItemService, IAssemblyLabelPrin
 
 
     @Override
-    public String labelPrint()  {
+    public String labelPrint() {
 
         getLabel();
 

@@ -2,6 +2,7 @@ package com.project;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
@@ -18,7 +19,6 @@ public class SpringApp extends Application {
 
 
         getApplicationContext().scan("com.project");
-
 
     }
 

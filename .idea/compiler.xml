@@ -13,12 +13,12 @@
         <module name="CommonAssembly" />
         <module name="CommonAGV" />
         <module name="Assembly" />
-        <module name="Common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="AgeCalculatorSpring" target="1.8" />
       <module name="AgeCalculatorSpringClient" target="1.8" />
+      <module name="Common" target="15" />
       <module name="Core" target="18" />
       <module name="GUI" target="17" />
       <module name="Javafxwoop" target="17" />

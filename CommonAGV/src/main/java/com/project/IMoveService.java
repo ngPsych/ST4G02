@@ -8,4 +8,12 @@ public interface IMoveService {
 
     void moveToChargerOperation();
 
+    void putItemAtAssembly();
+
+    void putItemAtWarehouse();
+
+    void pickupWarehouse();
+
+    void pickupItemAssembly();
+
 }
