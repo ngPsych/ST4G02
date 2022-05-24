@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 @Component
-@ComponentScan
 public class WarehouseControl implements IItemService, IWarehousePrintService {
 
     IEmulatorService_Service service = new IEmulatorService_Service();
